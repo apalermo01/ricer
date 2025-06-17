@@ -1,5 +1,5 @@
-from src.utils.types import BaseToolConfig, ThemeContext, ThemeData, ToolResult, UserConfig
-from src.utils.wrapper import tool_wrapper
+from utils.types import BaseToolConfig, ThemeContext, ThemeData, ToolResult, UserConfig
+from utils.wrapper import tool_wrapper
 import logging
 
 logger = logging.getLogger(__name__)

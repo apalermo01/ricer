@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+version = "0.1"
+name = "ricer"
+requires-python >= '3.9'
+readme = "README.md"
+
+dependencies = [
+    "pydantic",
+    "pyyaml",
+    "jinja2",
+    "matplotlib",
+    "numpy",
+    "toml"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest"
+]
+
+[project.scripts]
+ricer = "ricer.cli:main"
+
+[too.setuptools.package-data]
+"ricer" = ["config/*.yml"]

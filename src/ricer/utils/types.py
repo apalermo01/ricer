@@ -1,24 +1,21 @@
-from typing import Optional, TypedDict, TYPE_CHECKING
-
-
-
+from typing import TYPE_CHECKING, Optional, TypedDict
 
 if TYPE_CHECKING:
-    from src.tools.i3 import i3Config
-    from src.tools.apps import AppsConfig
-    from src.tools.bash import BashConfig
-    from src.tools.colors import ColorsConfig
-    from src.tools.dunst import DunstConfig
-    from src.tools.fish import FishConfig
-    from src.tools.nvim import NvimConfig
-    from src.tools.okular import OkularConfig
-    from src.tools.picom import PicomConfig
-    from src.tools.polybar import PolybarConfig
-    from src.tools.rofi import RofiConfig
-    from src.tools.tmux import TmuxConfig
-    from src.tools.wallpaper import WallpaperConfig
-    from src.tools.yazi import YaziConfig
-    from src.tools.zsh import ZshConfig
+    from tools.apps import AppsConfig
+    from tools.bash import BashConfig
+    from tools.colors import ColorsConfig
+    from tools.dunst import DunstConfig
+    from tools.fish import FishConfig
+    from tools.i3 import i3Config
+    from tools.nvim import NvimConfig
+    from tools.okular import OkularConfig
+    from tools.picom import PicomConfig
+    from tools.polybar import PolybarConfig
+    from tools.rofi import RofiConfig
+    from tools.tmux import TmuxConfig
+    from tools.wallpaper import WallpaperConfig
+    from tools.yazi import YaziConfig
+    from tools.zsh import ZshConfig
 
 
 class ToolConfig(TypedDict):
@@ -31,7 +28,7 @@ class UserConfig(TypedDict):
     cfg_path: str
     override_path: str
 
-    list_themes: Optional[bool] # if this is true, program should list themes then exit
+    list_themes: Optional[bool]  # if this is true, program should list themes then exit
 
     # where user-specific dotfiles live
     template_path: str
@@ -41,7 +38,7 @@ class UserConfig(TypedDict):
 
     # tools: sub-key = tool name (i3, bash, colors, etc.)
     tools: dict[str, ToolConfig]
-    
+
     wallpaper_path: Optional[str]
 
     scripts_root: Optional[str]
@@ -65,6 +62,7 @@ class FileAction(TypedDict):
     src: str
     dst: str
 
+
 class BaseToolConfig(TypedDict):
     append: list[FileAction]
     template_path: Optional[str]
@@ -86,6 +84,7 @@ class ThemeData(TypedDict):
     wallpaper: "Optional[WallpaperConfig]"
     yazi: "Optional[YaziConfig]"
     zsh: "Optional[ZshConfig]"
+
 
 class ToolResult(TypedDict):
     # full theme config. Returned from each tool in case

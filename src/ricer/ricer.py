@@ -5,11 +5,11 @@ from typing import Optional, cast
 
 import yaml
 
-from src.tools import modules
-from src.utils.args import init_theme_config
-from src.utils.colors import configure_colors
-from src.utils.common import merge_dicts
-from src.utils.types import ThemeContext, ThemeData, UserConfig
+from tools import modules
+from utils.args import init_theme_config
+from utils.colors import configure_colors
+from utils.common import merge_dicts
+from utils.types import ThemeContext, ThemeData, UserConfig
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)

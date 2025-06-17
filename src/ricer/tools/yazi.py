@@ -1,14 +1,14 @@
 import logging
 from typing import Optional
 
-from src.utils.types import (
+from utils.types import (
     BaseToolConfig,
     ThemeContext,
     ThemeData,
     ToolResult,
     UserConfig,
 )
-from src.utils.wrapper import tool_wrapper
+from utils.wrapper import tool_wrapper
 import os 
 import toml 
 

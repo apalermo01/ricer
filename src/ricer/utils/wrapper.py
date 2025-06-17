@@ -3,7 +3,7 @@ import os
 import shutil
 from typing import Callable
 
-from src.utils.types import FileAction, ThemeContext, ThemeData, ToolResult, UserConfig
+from utils.types import FileAction, ThemeContext, ThemeData, ToolResult, UserConfig
 
 logger = logging.getLogger(__name__)
 
@@ -68,8 +68,10 @@ def tool_wrapper(tool: str):
 def copy_files_from_template(template_path: str, build_path: str):
     """Copy files from the template folder directly into the build folder"""
     if not os.path.exists(template_path):
-        raise RuntimeError(f"template path {template_path} does not exist. \n" \
-            "tip: tool name is automatically appended at the end of template path")
+        raise RuntimeError(
+            f"template path {template_path} does not exist. \n"
+            "tip: tool name is automatically appended at the end of template path"
+        )
 
     if not os.path.exists(build_path):
         logger.info(f"creating build folder: {build_path}")

@@ -2,15 +2,15 @@ import logging
 import os
 from typing import Optional, Union
 
-from src.utils.types import (
+from utils.types import (
     BaseToolConfig,
     ThemeContext,
     ThemeData,
     ToolResult,
     UserConfig,
 )
-from src.utils.wrapper import tool_wrapper
-from src.utils.common import overwrite_or_append_line
+from utils.wrapper import tool_wrapper
+from utils.common import overwrite_or_append_line
 logger = logging.getLogger(__name__)
 
 

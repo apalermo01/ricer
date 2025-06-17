@@ -5,7 +5,7 @@ import os
 import yaml
 
 from config import RICER_DEFAULT_CFG, RICER_DEFAULT_OVERRIDE, RICER_DEFAULT_SCRIPTS_PATH, RICER_DEFAULT_WALLPAPER_PATH
-from src.utils.types import ThemeData, UserConfig
+from utils.types import ThemeData, UserConfig
 import logging
 
 logger = logging.getLogger(__name__)

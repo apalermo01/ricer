@@ -6,3 +6,4 @@ fi
 
 cp ./config/ricer.yml ~/.config/ricer/ricer.yml
 cp ./config/ricer-global.yml ~/.config/ricer/ricer-global.yml
+

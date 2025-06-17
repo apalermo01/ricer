@@ -3,15 +3,15 @@ import os
 from textwrap import dedent
 from typing import Literal, Optional
 
-from src.utils.common import append_text
-from src.utils.types import (
+from utils.common import append_text
+from utils.types import (
     BaseToolConfig,
     ThemeContext,
     ThemeData,
     ToolResult,
     UserConfig,
 )
-from src.utils.wrapper import tool_wrapper
+from utils.wrapper import tool_wrapper
 
 logger = logging.getLogger(__name__)
 

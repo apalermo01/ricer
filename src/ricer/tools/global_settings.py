@@ -2,7 +2,7 @@ import logging
 import os
 import shutil
 
-from src.utils.types import (
+from utils.types import (
     ThemeContext,
     ThemeData,
     ToolResult,

@@ -5,15 +5,15 @@ import os
 import shutil
 from typing import Optional
 
-from src.utils.common import overwrite_or_append_line
-from src.utils.types import (
+from utils.common import overwrite_or_append_line
+from utils.types import (
     BaseToolConfig,
     ThemeContext,
     ThemeData,
     ToolResult,
     UserConfig,
 )
-from src.utils.wrapper import tool_wrapper
+from utils.wrapper import tool_wrapper
 
 logger = logging.getLogger(__name__)
 

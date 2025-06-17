@@ -1,34 +1,30 @@
 import logging
-import subprocess
 
-from src.utils.types import (
+from utils.types import (
     BaseToolConfig,
     ThemeContext,
     ThemeData,
     ToolResult,
     UserConfig,
 )
-from src.utils.wrapper import tool_wrapper
+from utils.wrapper import tool_wrapper
 
 logger = logging.getLogger(__name__)
 
 
-class PicomConfig(BaseToolConfig):
+class DunstConfig(BaseToolConfig):
     pass
 
 
-@tool_wrapper(tool="picom")
-def parse_picom(
+@tool_wrapper(tool="dunst")
+def parse_dunst(
     theme_data: ThemeData,
     theme_context: ThemeContext,
     user_config: UserConfig,
     destination_path: str,
     install_script: str,
 ) -> ToolResult:
-    logger.info("configuring picom... ")
-
-    logger.info("Loading picom...")
-    subprocess.run(["killall", "picom"])
+    logger.info("configuring dunst... ")
 
     return {
         "theme_data": theme_data,
