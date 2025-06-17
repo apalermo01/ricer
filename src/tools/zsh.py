@@ -25,6 +25,7 @@ class ZshConfig(BaseToolConfig):
         ]
     ]
     zsh: Optional[bool]
+    direnv: Optional[bool]
 
 
 @tool_wrapper(tool="zsh")
@@ -54,7 +55,7 @@ def parse_zsh(
 
     prompts_dict = {
         "cowsay_fortune": (
-            "fortune | cowsay -f $(ls /usr/share/cowsay/cows/ " "| shuf -n1)\n"
+            "fortune | cowsay -r \n"
         ),
         "neofetch": "neofetch\n",
         "fastfetch": "fastfetch\n",
@@ -83,10 +84,13 @@ def parse_zsh(
             if d == "neofetch":
                 logger.warning("using fastfetch instead of neofetch")
             append_text(dest, prompts_dict[d])
+
     if theme_data['zsh'].get('zoxide'):
         append_text(dest, 'alias cd="z"\n')
         append_text(dest, 'eval "$(zoxide init zsh)"\n')
 
+    if theme_data['zsh'].get('direnv'):
+        append_text(dest, 'eval "$(direnv hook zsh)"\n')
     return {
         "theme_data": theme_data,
         "install_script": install_script,

@@ -1,0 +1,78 @@
+template_path: '~/Documents/git/dotfiles/templates/'
+scripts_root: '~/Documents/git/dotfiles/user_scripts/'
+dotfiles_path: '~/Documents/git/dotfiles/built_themes'
+themes_path: '~/Documents/git/dotfiles/themes'
+wallpaper_path: '~/Pictures/wallpapers/'
+
+tools:
+  i3:
+    config_path: '.config/i3'
+    jinja: True
+  
+  polybar:
+    config_path: '.config/polybar'
+    jinja: True
+
+  colors:
+    config_path: ""  
+
+  wallpaper:
+    config_path: ""  
+
+  nvim:
+    config_path: '.config/nvim'
+
+  tmux:
+    config_path: ''
+  
+  zsh: 
+    config_path: ''
+
+  kitty:
+    config_path: '.config/kitty'
+
+  picom:
+    config_path: '.config/picom'
+  
+  rofi:
+    config_path: '.config/rofi'
+
+  fastfetch:
+    config_path: '.config/fastfetch'
+  
+  apps:
+    config_path: '.config/'
+
+  okular:
+    config_path: '.config/'
+
+  yazi:
+    config_path: '.config/yazi'
+
+  global:
+    config_path: ''
+
+# bash: 
+#   template_path: 'default_configs/bash'
+#   destination_path: 'bash/'
+#   config_path: ''
+#
+# fish:
+#   template_path: 'default_configs/fish'
+#   destination_path: 'fish/'
+#   config_path: '.config/fish/'
+#
+# hyprland:
+#   template_path: 'default_configs/hyprland'
+#   destination_path: 'hypr/'
+#   config_path: '.config/hypr/'
+#
+# waybar:
+#   template_path: 'default_configs/waybar'
+#   destination_path: 'waybar/'
+#   config_path: '.config/waybar/'
+#
+# alacritty:
+#   template_path:  'default_configs/alacritty/'
+#   destination_path: 'alacritty/'
+#   config_path: '.config/alacritty/'
