@@ -1,0 +1,12 @@
+colors:
+  method: pywal
+
+wallpaper:
+  file: cat1.jpg 
+  method: feh 
+
+i3:
+  append:
+    - src: config 
+      dst: i3/config
+

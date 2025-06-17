@@ -1,0 +1,13 @@
+---
+themes_path: ./tests/themes
+wallpaper_path: ~/Pictures/wallpapers/
+scripts_root: '~/Documents/git/ricer/tests/scripts/'
+tools:
+  i3:
+    config_path: .config/i3
+  polybar:
+    config_path: .config/polybar
+  colors:
+    config_path: ''
+  wallpaper:
+    config_path: ''
