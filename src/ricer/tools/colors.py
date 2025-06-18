@@ -5,7 +5,7 @@ import subprocess
 
 import matplotlib.pyplot as plt
 
-from utils.types import (
+from ricer.utils.types import (
     BaseToolConfig,
     ThemeContext,
     ThemeData,

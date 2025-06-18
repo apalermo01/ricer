@@ -3,7 +3,7 @@ import json
 from jinja2 import Template
 import logging
 
-from utils.types import UserConfig
+from ricer.utils.types import UserConfig
 logger = logging.getLogger(__name__)
 
 def configure_colors(theme_path: str, user_config: UserConfig):

@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -25,5 +25,8 @@ dev = [
 [project.scripts]
 ricer = "ricer.cli:main"
 
-[too.setuptools.package-data]
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
 "ricer" = ["config/*.yml"]

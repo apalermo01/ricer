@@ -3,7 +3,7 @@ import os
 import shutil
 from typing import Callable
 
-from utils.types import FileAction, ThemeContext, ThemeData, ToolResult, UserConfig
+from ricer.utils.types import FileAction, ThemeContext, ThemeData, ToolResult, UserConfig
 
 logger = logging.getLogger(__name__)
 

@@ -1,14 +1,14 @@
 import logging
 from typing import Optional
 
-from utils.types import (
+from ricer.utils.types import (
     BaseToolConfig,
     ThemeContext,
     ThemeData,
     ToolResult,
     UserConfig,
 )
-from utils.wrapper import tool_wrapper
+from ricer.utils.wrapper import tool_wrapper
 import os 
 import toml 
 

@@ -5,15 +5,15 @@ import os
 import shutil
 from typing import Optional
 
-from utils.common import overwrite_or_append_line
-from utils.types import (
+from ricer.utils.common import overwrite_or_append_line
+from ricer.utils.types import (
     BaseToolConfig,
     ThemeContext,
     ThemeData,
     ToolResult,
     UserConfig,
 )
-from utils.wrapper import tool_wrapper
+from ricer.utils.wrapper import tool_wrapper
 
 logger = logging.getLogger(__name__)
 

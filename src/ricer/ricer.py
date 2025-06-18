@@ -5,11 +5,11 @@ from typing import Optional, cast
 
 import yaml
 
-from tools import modules
-from utils.args import init_theme_config
-from utils.colors import configure_colors
-from utils.common import merge_dicts
-from utils.types import ThemeContext, ThemeData, UserConfig
+from ricer.tools import modules
+from ricer.utils.args import init_theme_config
+from ricer.utils.colors import configure_colors
+from ricer.utils.common import merge_dicts
+from ricer.utils.types import ThemeContext, ThemeData, UserConfig
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)

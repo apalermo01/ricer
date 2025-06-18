@@ -5,7 +5,7 @@ from . ricer import (
     move_to_dotfiles,
     prepare_paths,
 )
-from utils.args import get_user_config
+from ricer.utils.args import get_user_config
 
 def main():
     user_config = get_user_config()

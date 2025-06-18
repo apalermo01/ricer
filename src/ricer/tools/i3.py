@@ -2,16 +2,16 @@ import logging
 import os
 from typing import Optional
 
-from utils.common import append_if_not_present, overwrite_or_append_line
-from utils.types import (
+from ricer.utils.common import append_if_not_present, overwrite_or_append_line
+from ricer.utils.types import (
     BaseToolConfig,
     ThemeContext,
     ThemeData,
     ToolResult,
     UserConfig,
 )
-from utils.validate import available_terminals
-from utils.wrapper import tool_wrapper
+from ricer.utils.validate import available_terminals
+from ricer.utils.wrapper import tool_wrapper
 
 logger = logging.getLogger(__name__)
 

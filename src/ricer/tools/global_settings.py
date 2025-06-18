@@ -2,7 +2,7 @@ import logging
 import os
 import shutil
 
-from utils.types import (
+from ricer.utils.types import (
     ThemeContext,
     ThemeData,
     ToolResult,

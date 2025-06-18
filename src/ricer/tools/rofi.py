@@ -1,5 +1,5 @@
-from utils.types import BaseToolConfig, ThemeContext, ThemeData, ToolResult, UserConfig
-from utils.wrapper import tool_wrapper
+from ricer.utils.types import BaseToolConfig, ThemeContext, ThemeData, ToolResult, UserConfig
+from ricer.utils.wrapper import tool_wrapper
 import logging
 
 logger = logging.getLogger(__name__)
