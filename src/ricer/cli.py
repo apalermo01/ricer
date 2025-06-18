@@ -1,5 +1,5 @@
 import sys
-from .switch import main as switch_main
+from ricer.switch import main as switch_main
 
 def main() -> None:
     if len(sys.argv) >= 2 and sys.argv[1] == "switch":

@@ -1,6 +1,6 @@
 import os
 import sys
-from . ricer import (
+from ricer.ricer import (
     build_theme,
     move_to_dotfiles,
     prepare_paths,

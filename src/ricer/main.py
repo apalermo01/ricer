@@ -1,5 +1,5 @@
-from . ricer import build_theme, list_themes
-from . utils.args import get_user_config
+from ricer.ricer import build_theme, list_themes
+from ricer.utils.args import get_user_config
 
 
 def main():

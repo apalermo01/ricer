@@ -4,7 +4,7 @@ import os
 
 import yaml
 
-from config import RICER_DEFAULT_CFG, RICER_DEFAULT_OVERRIDE, RICER_DEFAULT_SCRIPTS_PATH, RICER_DEFAULT_WALLPAPER_PATH
+from ricer.config import RICER_DEFAULT_CFG, RICER_DEFAULT_OVERRIDE, RICER_DEFAULT_SCRIPTS_PATH, RICER_DEFAULT_WALLPAPER_PATH
 from ricer.utils.types import ThemeData, UserConfig
 import logging
 

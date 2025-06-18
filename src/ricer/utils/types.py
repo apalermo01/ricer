@@ -1,21 +1,21 @@
 from typing import TYPE_CHECKING, Optional, TypedDict
 
 if TYPE_CHECKING:
-    from tools.apps import AppsConfig
-    from tools.bash import BashConfig
-    from tools.colors import ColorsConfig
-    from tools.dunst import DunstConfig
-    from tools.fish import FishConfig
-    from tools.i3 import i3Config
-    from tools.nvim import NvimConfig
-    from tools.okular import OkularConfig
-    from tools.picom import PicomConfig
-    from tools.polybar import PolybarConfig
-    from tools.rofi import RofiConfig
-    from tools.tmux import TmuxConfig
-    from tools.wallpaper import WallpaperConfig
-    from tools.yazi import YaziConfig
-    from tools.zsh import ZshConfig
+    from ricer.tools.apps import AppsConfig
+    from ricer.tools.bash import BashConfig
+    from ricer.tools.colors import ColorsConfig
+    from ricer.tools.dunst import DunstConfig
+    from ricer.tools.fish import FishConfig
+    from ricer.tools.i3 import i3Config
+    from ricer.tools.nvim import NvimConfig
+    from ricer.tools.okular import OkularConfig
+    from ricer.tools.picom import PicomConfig
+    from ricer.tools.polybar import PolybarConfig
+    from ricer.tools.rofi import RofiConfig
+    from ricer.tools.tmux import TmuxConfig
+    from ricer.tools.wallpaper import WallpaperConfig
+    from ricer.tools.yazi import YaziConfig
+    from ricer.tools.zsh import ZshConfig
 
 
 class ToolConfig(TypedDict):
