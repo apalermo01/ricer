@@ -1,4 +1,5 @@
-from typing import TYPE_CHECKING, Optional, TypedDict
+from typing import TYPE_CHECKING, Optional
+from pydantic import BaseModel
 
 if TYPE_CHECKING:
     from ricer.tools.apps import AppsConfig
@@ -18,13 +19,13 @@ if TYPE_CHECKING:
     from ricer.tools.zsh import ZshConfig
 
 
-class ToolConfig(TypedDict):
+class ToolConfig(BaseModel):
     # path relative to the home directory where config files should go
     config_path: str
     jinja: Optional[bool]
 
 
-class UserConfig(TypedDict):
+class UserConfig(BaseModel):
     cfg_path: str
     override_path: str
 
@@ -50,7 +51,7 @@ class UserConfig(TypedDict):
     theme: str
 
 
-class ThemeContext(TypedDict):
+class ThemeContext(BaseModel):
     template_path: str
     theme_path: str
     theme_name: str
@@ -58,17 +59,17 @@ class ThemeContext(TypedDict):
     build_dir: str
 
 
-class FileAction(TypedDict):
+class FileAction(BaseModel):
     src: str
     dst: str
 
 
-class BaseToolConfig(TypedDict):
+class BaseToolConfig(BaseModel):
     append: list[FileAction]
     template_path: Optional[str]
 
 
-class ThemeData(TypedDict):
+class ThemeData(BaseModel):
     font: Optional[str]
     hook_path: Optional[str]
     apps: "Optional[AppsConfig]"
@@ -88,7 +89,7 @@ class ThemeData(TypedDict):
     zsh: "Optional[ZshConfig]"
 
 
-class ToolResult(TypedDict):
+class ToolResult(BaseModel):
     # full theme config. Returned from each tool in case
     # a tool needs to conditionally edit the configuration for
     # another tool
