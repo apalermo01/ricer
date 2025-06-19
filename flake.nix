@@ -11,7 +11,7 @@
     {
       self,
       nixpkgs,
-      # nixpkgs-python,
+    # nixpkgs-python,
     }:
     let
       system = "x86_64-linux";
@@ -23,8 +23,7 @@
         buildInputs = [
           pkgs.zlib
           pkgs.gcc
-
-          (pkgs.python311.withPackages(
+          (pkgs.python311.withPackages (
             ps: with ps; [
               pip
               setuptools
@@ -41,6 +40,10 @@
             ]
           ))
         ];
+
+        PYTHONPATH = "${./src}";
+        shell = pkgs.zsh;
       };
+
     };
 }
