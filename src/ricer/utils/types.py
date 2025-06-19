@@ -69,6 +69,8 @@ class BaseToolConfig(TypedDict):
 
 
 class ThemeData(TypedDict):
+    font: Optional[str]
+    hook_path: Optional[str]
     apps: "Optional[AppsConfig]"
     bash: "Optional[BashConfig]"
     colors: "Optional[ColorsConfig]"

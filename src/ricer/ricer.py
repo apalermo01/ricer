@@ -65,7 +65,7 @@ def prepare_paths(cfg: UserConfig) -> ThemeContext:
     }
 
 
-def build_theme(user_config: UserConfig):
+def build_theme(user_config: UserConfig) -> ThemeData:
     """Builds a suite of dotfiles based on config file"""
 
     theme_context = prepare_paths(user_config)
@@ -86,13 +86,6 @@ def build_theme(user_config: UserConfig):
     
     theme_data = merge_dicts(_theme_data, override_dict)
     logger.info(f"theme data = {theme_data['zsh']}")
-    # return
-    # theme_data = _theme_data
-    # theme_data = _theme_data | override_dict
-    # theme_data.update(override_dict)
-
-    # logger.info("theme data @ zsh = ")
-    # logger.info(theme_data['zsh'])
     theme_data = init_theme_config(theme_data, user_config)
     install_script_path = os.path.join(
         theme_context["theme_path"], "scripts", "install_theme.sh"
@@ -131,6 +124,7 @@ def build_theme(user_config: UserConfig):
 
             tools_updated[tool] = {"destination_path": destination_path}
     logger.info("finished building tools")
+
     # color templating for all modules that need it
     configure_colors(theme_context["theme_path"], user_config)
 
@@ -138,7 +132,7 @@ def build_theme(user_config: UserConfig):
     install_script_path = os.path.join(theme_context["build_dir"], "install_theme.sh")
     with open(install_script_path, "w") as f:
         f.write(theme_install_script)
-
+    return theme_data
 
 def move_to_dotfiles(
     user_config: UserConfig, theme_context: ThemeContext, dry_run: Optional[bool] = True
@@ -207,9 +201,9 @@ def move_to_dotfiles(
 
 
     # copy install scripts
-    # install_src = os.path.join(build_path, "install_theme.sh")
-    # install_dst = os.path.join(dotfiles_path, ".config", "install_theme.sh")
-    #
-    # if not dry_run:
-    #     shutil.copy2(install_src, install_dst)
-    # logger.info(f"{install_src} -> {install_dst}")
+    install_src = os.path.join(build_path, "install_theme.sh")
+    install_dst = os.path.join(dotfiles_path, ".config", "install_theme.sh")
+
+    if not dry_run:
+        shutil.copy2(install_src, install_dst)
+    logger.info(f"{install_src} -> {install_dst}")
