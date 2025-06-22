@@ -1,5 +1,0 @@
-#!/usr/bin/env bash 
-
-PRJ_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
-export PYTHONPATH="$PRJ_ROOT/src"
-exec python -m ricer.cli "$@"

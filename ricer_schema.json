@@ -1,0 +1,1161 @@
+{
+  "$defs": {
+    "AlacrittyConfig": {
+      "properties": {
+        "append": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Append",
+          "type": "array"
+        },
+        "overwrite": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Overwrite",
+          "type": "array"
+        },
+        "template_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Template Path"
+        }
+      },
+      "title": "AlacrittyConfig",
+      "type": "object"
+    },
+    "AppsConfig": {
+      "properties": {
+        "append": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Append",
+          "type": "array"
+        },
+        "overwrite": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Overwrite",
+          "type": "array"
+        },
+        "template_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Template Path"
+        },
+        "provides": {
+          "additionalProperties": true,
+          "title": "Provides",
+          "type": "object"
+        },
+        "requires": {
+          "additionalProperties": true,
+          "title": "Requires",
+          "type": "object"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "provides",
+        "requires",
+        "name"
+      ],
+      "title": "AppsConfig",
+      "type": "object"
+    },
+    "BashConfig": {
+      "properties": {
+        "append": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Append",
+          "type": "array"
+        },
+        "overwrite": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Overwrite",
+          "type": "array"
+        },
+        "template_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Template Path"
+        },
+        "feats": {
+          "default": [],
+          "items": {
+            "enum": [
+              "cowsay_fortune",
+              "neofetch",
+              "fastfetch",
+              "run_pywal",
+              "git_onefetch"
+            ],
+            "type": "string"
+          },
+          "title": "Feats",
+          "type": "array"
+        }
+      },
+      "title": "BashConfig",
+      "type": "object"
+    },
+    "ColorsConfig": {
+      "properties": {
+        "append": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Append",
+          "type": "array"
+        },
+        "overwrite": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Overwrite",
+          "type": "array"
+        },
+        "template_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Template Path"
+        },
+        "method": {
+          "title": "Method",
+          "type": "string"
+        }
+      },
+      "required": [
+        "method"
+      ],
+      "title": "ColorsConfig",
+      "type": "object"
+    },
+    "DunstConfig": {
+      "properties": {
+        "append": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Append",
+          "type": "array"
+        },
+        "overwrite": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Overwrite",
+          "type": "array"
+        },
+        "template_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Template Path"
+        }
+      },
+      "title": "DunstConfig",
+      "type": "object"
+    },
+    "FastfetchConfig": {
+      "properties": {
+        "append": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Append",
+          "type": "array"
+        },
+        "overwrite": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Overwrite",
+          "type": "array"
+        },
+        "template_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Template Path"
+        }
+      },
+      "title": "FastfetchConfig",
+      "type": "object"
+    },
+    "FileAction": {
+      "properties": {
+        "src": {
+          "title": "Src",
+          "type": "string"
+        },
+        "dst": {
+          "title": "Dst",
+          "type": "string"
+        }
+      },
+      "required": [
+        "src",
+        "dst"
+      ],
+      "title": "FileAction",
+      "type": "object"
+    },
+    "FishConfig": {
+      "properties": {
+        "append": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Append",
+          "type": "array"
+        },
+        "overwrite": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Overwrite",
+          "type": "array"
+        },
+        "template_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Template Path"
+        },
+        "feats": {
+          "default": [],
+          "items": {
+            "enum": [
+              "cowsay_fortune",
+              "neofetch",
+              "fastfetch",
+              "run_pywal",
+              "git_onefetch"
+            ],
+            "type": "string"
+          },
+          "title": "Feats",
+          "type": "array"
+        }
+      },
+      "title": "FishConfig",
+      "type": "object"
+    },
+    "GlobalConfig": {
+      "properties": {
+        "append": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Append",
+          "type": "array"
+        },
+        "overwrite": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Overwrite",
+          "type": "array"
+        },
+        "template_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Template Path"
+        }
+      },
+      "title": "GlobalConfig",
+      "type": "object"
+    },
+    "KittyConfig": {
+      "properties": {
+        "append": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Append",
+          "type": "array"
+        },
+        "overwrite": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Overwrite",
+          "type": "array"
+        },
+        "template_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Template Path"
+        }
+      },
+      "title": "KittyConfig",
+      "type": "object"
+    },
+    "NvimConfig": {
+      "properties": {
+        "append": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Append",
+          "type": "array"
+        },
+        "overwrite": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Overwrite",
+          "type": "array"
+        },
+        "template_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Template Path"
+        },
+        "colorscheme": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Colorscheme"
+        },
+        "nvchad_colorscheme": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Nvchad Colorscheme"
+        },
+        "nvchad_separator": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Nvchad Separator"
+        }
+      },
+      "title": "NvimConfig",
+      "type": "object"
+    },
+    "OkularConfig": {
+      "properties": {
+        "append": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Append",
+          "type": "array"
+        },
+        "overwrite": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Overwrite",
+          "type": "array"
+        },
+        "template_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Template Path"
+        },
+        "UiSettings": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": {},
+          "title": "Uisettings"
+        }
+      },
+      "title": "OkularConfig",
+      "type": "object"
+    },
+    "PicomConfig": {
+      "properties": {
+        "append": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Append",
+          "type": "array"
+        },
+        "overwrite": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Overwrite",
+          "type": "array"
+        },
+        "template_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Template Path"
+        }
+      },
+      "title": "PicomConfig",
+      "type": "object"
+    },
+    "PolybarConfig": {
+      "properties": {
+        "append": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Append",
+          "type": "array"
+        },
+        "overwrite": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Overwrite",
+          "type": "array"
+        },
+        "template_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Template Path"
+        },
+        "bars": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": [],
+          "title": "Bars"
+        },
+        "start_script": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Start Script"
+        }
+      },
+      "title": "PolybarConfig",
+      "type": "object"
+    },
+    "RofiConfig": {
+      "properties": {
+        "append": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Append",
+          "type": "array"
+        },
+        "overwrite": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Overwrite",
+          "type": "array"
+        },
+        "template_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Template Path"
+        }
+      },
+      "title": "RofiConfig",
+      "type": "object"
+    },
+    "TmuxConfig": {
+      "properties": {
+        "append": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Append",
+          "type": "array"
+        },
+        "overwrite": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Overwrite",
+          "type": "array"
+        },
+        "template_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Template Path"
+        }
+      },
+      "title": "TmuxConfig",
+      "type": "object"
+    },
+    "WallpaperConfig": {
+      "properties": {
+        "append": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Append",
+          "type": "array"
+        },
+        "overwrite": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Overwrite",
+          "type": "array"
+        },
+        "template_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Template Path"
+        },
+        "method": {
+          "default": "None",
+          "enum": [
+            "feh",
+            "hyprpaper",
+            "None"
+          ],
+          "title": "Method",
+          "type": "string"
+        },
+        "file": {
+          "title": "File",
+          "type": "string"
+        }
+      },
+      "required": [
+        "file"
+      ],
+      "title": "WallpaperConfig",
+      "type": "object"
+    },
+    "YaziConfig": {
+      "properties": {
+        "append": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Append",
+          "type": "array"
+        },
+        "overwrite": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Overwrite",
+          "type": "array"
+        },
+        "template_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Template Path"
+        },
+        "dark": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Dark"
+        },
+        "light": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Light"
+        }
+      },
+      "required": [
+        "dark",
+        "light"
+      ],
+      "title": "YaziConfig",
+      "type": "object"
+    },
+    "ZshConfig": {
+      "properties": {
+        "append": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Append",
+          "type": "array"
+        },
+        "overwrite": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Overwrite",
+          "type": "array"
+        },
+        "template_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Template Path"
+        },
+        "feats": {
+          "default": [],
+          "items": {
+            "enum": [
+              "cowsay_fortune",
+              "neofetch",
+              "fastfetch",
+              "run_pywal",
+              "git_onefetch"
+            ],
+            "type": "string"
+          },
+          "title": "Feats",
+          "type": "array"
+        },
+        "zoxide": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Zoxide"
+        },
+        "direnv": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Direnv"
+        }
+      },
+      "required": [
+        "zoxide",
+        "direnv"
+      ],
+      "title": "ZshConfig",
+      "type": "object"
+    },
+    "i3Config": {
+      "properties": {
+        "append": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Append",
+          "type": "array"
+        },
+        "overwrite": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FileAction"
+          },
+          "title": "Overwrite",
+          "type": "array"
+        },
+        "template_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Template Path"
+        },
+        "font": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Font"
+        },
+        "font_size": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": 11,
+          "title": "Font Size"
+        }
+      },
+      "title": "i3Config",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "font": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Font"
+    },
+    "font_size": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Font Size"
+    },
+    "hook_path": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Hook Path"
+    },
+    "alacritty": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/AlacrittyConfig"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "apps": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/AppsConfig"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "bash": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BashConfig"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "colors": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ColorsConfig"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "dunst": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/DunstConfig"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "fastfetch": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FastfetchConfig"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "fish": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FishConfig"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "global_settings": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/GlobalConfig"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "i3": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/i3Config"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "kitty": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/KittyConfig"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "nvim": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/NvimConfig"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "okular": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/OkularConfig"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "picom": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/PicomConfig"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "polybar": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/PolybarConfig"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "rofi": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/RofiConfig"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "tmux": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/TmuxConfig"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "wallpaper": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/WallpaperConfig"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "yazi": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/YaziConfig"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "zsh": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ZshConfig"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    }
+  },
+  "title": "ThemeData",
+  "type": "object"
+}
