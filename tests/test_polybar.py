@@ -7,12 +7,8 @@ args = {
     "theme": "polybar",
 }
 
-theme_path = os.path.join(
-    os.getcwd(),
-    "tests",
-    "themes",
-    "polybar"
-)
+theme_path = os.path.join(os.getcwd(), "tests", "themes", "polybar")
+
 
 def test_polybar():
     build_theme(args)

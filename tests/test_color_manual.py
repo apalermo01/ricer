@@ -7,12 +7,9 @@ args = {
     "theme": "color_manual",
 }
 
-theme_path = os.path.join(
-    os.getcwd(),
-    "tests",
-    "themes",
-    "color_manual"
-)
+theme_path = os.path.join(os.getcwd(), "tests", "themes", "color_manual")
+
+
 def test_build_manual_colors():
     build_theme(args)
 

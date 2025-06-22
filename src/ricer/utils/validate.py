@@ -1,1 +1,1 @@
-available_terminals = ['kitty']
+available_terminals = ["kitty"]

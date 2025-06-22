@@ -1,21 +1,14 @@
 import logging
 import os
 from textwrap import dedent
-from typing import Literal, Optional
-from ricer.utils.types import (
-    BaseToolConfig,
-    ThemeContext,
-    ThemeData,
-    ToolResult,
-    UserConfig,
-)
-from ricer.utils.wrapper import tool_wrapper
+
 from ricer.utils.common import append_text
+from ricer.utils.theme_data import ThemeData, ToolResult
+from ricer.utils.types import ThemeContext, UserConfig
+from ricer.utils.wrapper import tool_wrapper
 
 logger = logging.getLogger(__name__)
 
-class FishConfig(BaseToolConfig):
-    feats: Optional[list[Literal['cowsay_fortune', 'neofetch', 'fastfetch', 'run_pywal', 'git_onefetch']]]
 
 @tool_wrapper(tool="fish")
 def parse_fish(
@@ -26,11 +19,12 @@ def parse_fish(
     install_script: str,
 ) -> ToolResult:
     logger.info("configuring fish... ")
-    assert theme_data['fish']
-    feats: list[str] = theme_data['fish'].get('feats', [])
-    
-    if theme_data.get('wallpaper'):
-        wallpaper_file = theme_data["wallpaper"]["file"]
+
+    assert theme_data.fish
+    feats = theme_data.fish.feats
+
+    if theme_data.wallpaper:
+        wallpaper_file = theme_data.wallpaper.file
         wallpaper_path = os.path.expanduser(f"~/Pictures/wallpapers/{wallpaper_file}")
     else:
         wallpaper_path = ""
@@ -65,10 +59,8 @@ def parse_fish(
             if d == "neofetch":
                 logger.warning("using fastfetch instead of neofetch")
             append_text(dest, prompts_dict[d])
-
-    return {
-        "theme_data": theme_data,
-        "install_script": install_script,
-        "destination_path": destination_path,
-    }
-    return {"theme_data": theme_data, "install_script": install_script}
+    return ToolResult(
+        theme_data=theme_data,
+        install_script=install_script,
+        destination_path=destination_path,
+    )

@@ -1,20 +1,11 @@
 import logging
 import subprocess
 
-from ricer.utils.types import (
-    BaseToolConfig,
-    ThemeContext,
-    ThemeData,
-    ToolResult,
-    UserConfig,
-)
+from ricer.utils.theme_data import ThemeData, ToolResult
+from ricer.utils.types import ThemeContext, UserConfig
 from ricer.utils.wrapper import tool_wrapper
 
 logger = logging.getLogger(__name__)
-
-
-class PicomConfig(BaseToolConfig):
-    pass
 
 
 @tool_wrapper(tool="picom")
@@ -25,14 +16,11 @@ def parse_picom(
     destination_path: str,
     install_script: str,
 ) -> ToolResult:
-    logger.info("configuring picom... ")
-
     logger.info("Loading picom...")
     subprocess.run(["killall", "picom"])
 
-    return {
-        "theme_data": theme_data,
-        "install_script": install_script,
-        "destination_path": destination_path,
-    }
-    return {"theme_data": theme_data, "install_script": install_script}
+    return ToolResult(
+        theme_data=theme_data,
+        install_script=install_script,
+        destination_path=destination_path,
+    )

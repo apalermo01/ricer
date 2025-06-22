@@ -3,7 +3,8 @@ import os
 import shutil
 from typing import Callable
 
-from ricer.utils.types import FileAction, ThemeContext, ThemeData, ToolResult, UserConfig
+from ricer.utils.theme_data import FileAction, ThemeData, ToolResult
+from ricer.utils.types import ThemeContext, UserConfig
 
 logger = logging.getLogger(__name__)
 
@@ -17,36 +18,31 @@ def tool_wrapper(tool: str):
             install_script: str,
         ) -> ToolResult:
 
-            template_path = theme_data[tool].get(
-                "template_path", theme_context["template_path"]
-            )
+            tool_config = getattr(theme_data, tool)
 
-            logger.info(f"original template path = {template_path}")
-            logger.info(f"theme path = {theme_context['theme_path']}")
+            if tool_config.template_path:
+                template_path = tool_config.template_path
+            else:
+                template_path = theme_context.template_path
 
-            # TODO: add $THIS_THEME to documentation
-            template_path = template_path.replace(
-                "$THIS_THEME", theme_context["theme_path"]
-            )
-
-            destination_path = os.path.join(theme_context["build_dir"], tool)
+            destination_path = os.path.join(theme_context.build_dir, tool)
 
             copy_files_from_template(
                 os.path.join(template_path, tool), destination_path
             )
 
-            if "append" in theme_data[tool]:
+            if tool_config.append:
                 copy_files_from_filelist(
-                    theme_data[tool]["append"],
-                    theme_context["theme_path"],
+                    tool_config.append,
+                    theme_context.theme_path,
                     tool,
                     overwrite=False,
                 )
 
-            if "overwrite" in theme_data[tool]:
+            if tool_config.overwrite:
                 copy_files_from_filelist(
-                    theme_data[tool]["overwrite"],
-                    theme_context["theme_path"],
+                    tool_config.overwrite,
+                    theme_context.theme_path,
                     tool,
                     overwrite=True,
                 )
@@ -85,12 +81,9 @@ def copy_files_from_template(template_path: str, build_path: str):
 
         # /Documents/git/dotfiles/templates/i3 -> /i3
         subfolder = root.replace(template_path, "")
-        logger.info(f"subfolder = {subfolder}")
         # /.config/ricer/themes/theme_name/build/i3
         #                                    new ^^
         folder = os.path.join(build_path, strip_slash(subfolder))
-        logger.info(f"build path = {build_path}")
-        logger.info(f"folder = {folder}")
 
         if not os.path.exists(folder):
             os.makedirs(folder)
@@ -109,18 +102,16 @@ def copy_files_from_filelist(
     file_list: list[FileAction], theme_path: str, tool_name: str, overwrite: bool
 ):
     for file_info in file_list:
-        logger.info(f"file info = {file_info}")
-        logger.info(f"theme path = {theme_path}")
-        if "~" in file_info["src"]:
-            from_path: str = os.path.expanduser(file_info["src"])
-        elif file_info["src"].startswith("./"):
-            from_path: str = file_info["src"]
+        if "~" in file_info.src:
+            from_path: str = os.path.expanduser(file_info.src)
+        elif file_info.src.startswith("./"):
+            from_path: str = file_info.src
         else:
             from_path: str = os.path.join(
-                os.getcwd(), theme_path, tool_name, file_info["src"]
+                os.getcwd(), theme_path, tool_name, file_info.src
             )
 
-        to_path: str = os.path.join(os.getcwd(), theme_path, "build", file_info["dst"])
+        to_path: str = os.path.join(os.getcwd(), theme_path, "build", file_info.dst)
 
         basepath: str = "/".join(to_path.split("/")[:-1])
         if not os.path.exists(basepath):

@@ -43,6 +43,15 @@
 
         PYTHONPATH = "${./src}";
         shell = pkgs.zsh;
+        shellHook = ''
+          echo "Overriding PATH"
+          export PATH=$(pwd)/scripts:$PATH
+          export PYTHONPATH="$(pwd)/src"
+          if [ -z "$IN_RICER_ZSH" ]; then
+            export IN_RICER_ZSH=1
+            exec ${pkgs.zsh}/bin/zsh -i
+          fi
+        '';
       };
 
     };

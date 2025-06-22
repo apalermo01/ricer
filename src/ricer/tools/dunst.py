@@ -1,19 +1,10 @@
 import logging
 
-from ricer.utils.types import (
-    BaseToolConfig,
-    ThemeContext,
-    ThemeData,
-    ToolResult,
-    UserConfig,
-)
+from ricer.utils.theme_data import ThemeData, ToolResult
+from ricer.utils.types import ThemeContext, UserConfig
 from ricer.utils.wrapper import tool_wrapper
 
 logger = logging.getLogger(__name__)
-
-
-class DunstConfig(BaseToolConfig):
-    pass
 
 
 @tool_wrapper(tool="dunst")
@@ -26,9 +17,8 @@ def parse_dunst(
 ) -> ToolResult:
     logger.info("configuring dunst... ")
 
-    return {
-        "theme_data": theme_data,
-        "install_script": install_script,
-        "destination_path": destination_path,
-    }
-    return {"theme_data": theme_data, "install_script": install_script}
+    return ToolResult(
+        theme_data=theme_data,
+        install_script=install_script,
+        destination_path=destination_path,
+    )

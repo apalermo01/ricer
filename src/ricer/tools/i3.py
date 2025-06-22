@@ -1,24 +1,16 @@
+from ricer.utils.types import ThemeContext, UserConfig
+
+from ricer.utils.theme_data import ThemeData, ToolResult
 import logging
 import os
-from typing import Optional
 
 from ricer.utils.common import append_if_not_present, overwrite_or_append_line
-from ricer.utils.types import (
-    BaseToolConfig,
-    ThemeContext,
-    ThemeData,
-    ToolResult,
-    UserConfig,
-)
 from ricer.utils.validate import available_terminals
 from ricer.utils.wrapper import tool_wrapper
 
 logger = logging.getLogger(__name__)
 
 
-class i3Config(BaseToolConfig):
-    font: Optional[str]
-    font_size: Optional[int]
 
 
 @tool_wrapper(tool="i3")
@@ -30,15 +22,14 @@ def parse_i3(
     install_script: str,
 ) -> ToolResult:
     logger.info("configuring i3... ")
-    _configure_terminal(theme_data, destination_path, theme_context["theme_path"])
-    _configure_picom(theme_data, destination_path, theme_context["theme_path"])
-    _configure_font(theme_data, destination_path, theme_context["theme_path"])
-    return {
-        "theme_data": theme_data,
-        "install_script": install_script,
-        "destination_path": destination_path,
-    }
-    return {"theme_data": theme_data, "install_script": install_script}
+    _configure_terminal(theme_data, destination_path, theme_context.theme_path)
+    _configure_picom(theme_data, destination_path, theme_context.theme_path)
+    _configure_font(theme_data, destination_path, theme_context.theme_path)
+    return ToolResult(
+        theme_data=theme_data,
+        install_script=install_script,
+        destination_path=destination_path,
+    )
 
 
 def _configure_terminal(config: ThemeData, dest: str, theme_path: str):
@@ -48,7 +39,7 @@ def _configure_terminal(config: ThemeData, dest: str, theme_path: str):
     # check the theme config for a terminal. If it is specified, then
     # start that using $mod+Return in i3
     for i in available_terminals:
-        if i in config:
+        if config.__getattribute__(i):
             terminal = i
             logger.info(
                 f"Found {i} in theme's config. "
@@ -74,9 +65,9 @@ def _configure_terminal(config: ThemeData, dest: str, theme_path: str):
     logger.info(f"updated terminal: {terminal}")
 
 
-def _configure_picom(config: ThemeData, dest: str, theme_path: str):
+def _configure_picom(config: "ThemeData", dest: str, theme_path: str):
 
-    if "picom" not in config:
+    if not config.picom:
         return
 
     dest_path = os.path.join(dest, "config")
@@ -90,14 +81,15 @@ def _configure_picom(config: ThemeData, dest: str, theme_path: str):
 
 
 def _configure_font(config: ThemeData, dest: str, theme_path: str):
+    assert config.i3
     font = (
         os.environ.get("FONT")
-        or config["i3"].get("font")
-        or config.get("font_family")
+        or config.i3.font
+        or config.font
         or "xft:URWGothic-Book"
     )
 
-    font_size = config["i3"].get("font_size", 11)
+    font_size = config.i3.font_size
     i3_config_path = os.path.join(theme_path, "build", "i3/config")
     pattern: str = "font "
     txt: str = f"font {font} {font_size}"

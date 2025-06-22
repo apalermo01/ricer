@@ -4,7 +4,9 @@ from jinja2 import Template
 import logging
 
 from ricer.utils.types import UserConfig
+
 logger = logging.getLogger(__name__)
+
 
 def configure_colors(theme_path: str, user_config: UserConfig):
     logger.info("configuring jinja templates for colorschemes")
@@ -21,7 +23,7 @@ def configure_colors(theme_path: str, user_config: UserConfig):
     logger.info(f"build path = {build_path}")
     for tool in os.listdir(build_path):
         tool_path = os.path.join(build_path, tool)
-        if not user_config['tools'][tool].get('jinja'):
+        if not user_config.tools[tool].jinja:
             continue
         logger.info(f"applying jinja template for {tool}")
         for root, dirs, files in os.walk(tool_path):

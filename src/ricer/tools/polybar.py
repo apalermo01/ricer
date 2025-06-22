@@ -1,3 +1,6 @@
+from ricer.utils.types import ThemeContext, UserConfig
+
+from ricer.utils.theme_data import ThemeData, BaseToolConfig, ToolResult
 import configparser
 import json
 import logging
@@ -6,21 +9,10 @@ import shutil
 from typing import Optional
 
 from ricer.utils.common import overwrite_or_append_line
-from ricer.utils.types import (
-    BaseToolConfig,
-    ThemeContext,
-    ThemeData,
-    ToolResult,
-    UserConfig,
-)
 from ricer.utils.wrapper import tool_wrapper
 
 logger = logging.getLogger(__name__)
 
-
-class PolybarConfig(BaseToolConfig):
-    bars: Optional[list[str]]
-    start_script: Optional[str]
 
 
 @tool_wrapper(tool="polybar")
@@ -33,10 +25,9 @@ def parse_polybar(
 ) -> ToolResult:
 
     logger.info("Loading polybar...")
-    assert "polybar" in theme_data
-    assert isinstance(theme_data["polybar"], dict)
+    assert theme_data.polybar
 
-    theme_path = theme_context["theme_path"]
+    theme_path = theme_context.theme_path
     polybar = configparser.ConfigParser()
 
     polybar_files = os.walk(destination_path)
@@ -53,11 +44,9 @@ def parse_polybar(
                 logger.info(f"wrote polybar config with colors to {config_subfile}")
 
     # launch script
-    # print("user config = ", user_config.keys())
-    if 'scripts_root' in user_config:
-        assert 'scripts_root' in user_config
-        assert isinstance(user_config['scripts_root'], str)
-        scripts_root = os.path.expanduser(user_config['scripts_root'])
+    if user_config.scripts_root:
+        assert isinstance(user_config.scripts_root, str)
+        scripts_root = os.path.expanduser(user_config.scripts_root)
     else:
         scripts_root = "./scripts"
 
@@ -68,11 +57,13 @@ def parse_polybar(
         pass
 
     shutil.copy2(src_script, destination_path)
-    logger.info(f"copied polybar startup script from {src_script} to {destination_path}")
+    logger.info(
+        f"copied polybar startup script from {src_script} to {destination_path}"
+    )
 
-    if theme_data["polybar"].get("bars"):
-        assert isinstance(theme_data["polybar"]["bars"], list)
-        bar_names: list = theme_data["polybar"]["bars"]
+    if theme_data.polybar.bars:
+        assert isinstance(theme_data.polybar.bars, list)
+        bar_names: list = theme_data.polybar.bars
     else:
         bar_names: list = ["main"]
     bar_names_str = ""
@@ -85,14 +76,11 @@ def parse_polybar(
         os.path.join(destination_path, "i3_polybar_start.sh"),
     )
 
-    return {
-        "theme_data": theme_data,
-        "install_script": install_script,
-        "destination_path": destination_path,
-    }
-
-    return {"theme_data": theme_data, "install_script": install_script}
-
+    return ToolResult(
+        theme_data=theme_data,
+        install_script=install_script,
+        destination_path=destination_path,
+    )
 
 def _parse_colors(polybar: configparser.ConfigParser, theme_path: str):
 

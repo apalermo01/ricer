@@ -39,5 +39,5 @@ modules = {
     "yazi": yazi.parse_yazi,
     "zsh": zsh.parse_zsh,
     "nvim": nvim.parse_nvim,
-    "wallpaper": wallpaper.parse_wallpaper
+    "wallpaper": wallpaper.parse_wallpaper,
 }

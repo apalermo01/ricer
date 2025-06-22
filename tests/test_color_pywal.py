@@ -7,12 +7,8 @@ args = {
     "theme": "color_test_pywal_i3",
 }
 
-theme_path = os.path.join(
-    os.getcwd(),
-    "tests",
-    "themes",
-    "color_manual"
-)
+theme_path = os.path.join(os.getcwd(), "tests", "themes", "color_manual")
+
 
 def test_build_pywal_colors():
     build_theme(args)

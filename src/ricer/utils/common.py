@@ -3,16 +3,13 @@ from typing import Iterable
 import json
 from jinja2 import Template
 
+
 def merge_dicts(a: dict, b: dict) -> dict:
-    print(f"dict a = {a}")
-    print(f"dict b = {b}")
     for k in b:
-        print(f"k = {k}")
         if k in a:
             if isinstance(a[k], dict) and isinstance(b[k], dict):
                 a[k] = merge_dicts(a[k], b[k])
             else:
-                print(f"a[k] = {a[k]}, b[k] = {b[k]}")
                 a[k] = b[k]
         else:
             a[k] = b[k]
@@ -93,9 +90,7 @@ def configure_colors(theme_path: str):
         folder = os.path.join(build_path, subfolder[1:])
 
         for file in files:
-            if "json" in file \
-                or "jsonc" in file \
-                or ".zsh" in file:
+            if "json" in file or "jsonc" in file or ".zsh" in file:
                 continue
 
             full_path = os.path.join(folder, file)
@@ -105,9 +100,10 @@ def configure_colors(theme_path: str):
 
             template = Template(template_content)
             rendered = template.render(colorscheme)
-            
+
             with open(full_path, "w") as f:
                 f.write(rendered)
+
 
 def append_text(src: str, text: str):
 

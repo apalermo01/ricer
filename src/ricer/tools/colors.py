@@ -5,19 +5,10 @@ import subprocess
 
 import matplotlib.pyplot as plt
 
-from ricer.utils.types import (
-    BaseToolConfig,
-    ThemeContext,
-    ThemeData,
-    ToolResult,
-    UserConfig,
-)
+from ricer.utils.types import ThemeContext, UserConfig
+from ricer.utils.theme_data import ThemeData, ToolResult
 
 logger = logging.getLogger(__name__)
-
-
-class ColorsConfig(BaseToolConfig):
-    pass
 
 
 def parse_colors(
@@ -26,14 +17,13 @@ def parse_colors(
     user_config: UserConfig,
     install_script: str,
 ) -> ToolResult:
-    # if this function is running, then we MUST have passed colors in the
-    # theme config
-    assert theme_data["colors"]
 
-    theme_path = theme_context["theme_path"]
+    assert theme_data.colors
+
+    theme_path = theme_context.theme_path
     logger.info(f"configuring colors for {theme_path}")
     allowed_methods: list[str] = ["manual", "pywal"]
-    method: str = theme_data["colors"].get("method", "manual")
+    method: str = theme_data.colors.method
 
     if method not in allowed_methods:
         raise ValueError(
@@ -48,19 +38,17 @@ def parse_colors(
         os.makedirs(colorscheme_path)
 
     if method == "pywal":
-        assert "wallpaper" in theme_data
-        assert isinstance(theme_data['wallpaper'], dict)
-        assert 'file' in theme_data['wallpaper']
-
+        assert theme_data.wallpaper
+        assert theme_data.wallpaper.file
 
         # if just the filename was given, look in the project'
         # wallpaper folder:
-        if user_config.get('wallpaper_path'):
-            assert isinstance(user_config['wallpaper_path'], str)
-            wallpaper_path = os.path.expanduser(user_config['wallpaper_path'])
+        if user_config.wallpaper_path:
+            # assert isinstance(user_config["wallpaper_path"], str)
+            wallpaper_path = os.path.expanduser(user_config.wallpaper_path)
         else:
             wallpaper_path = os.path.join(os.getcwd(), "wallpapers")
-        wallpaper_file: str = os.path.join(wallpaper_path, theme_data["wallpaper"]["file"])
+        wallpaper_file: str = os.path.join(wallpaper_path, theme_data.wallpaper.file)
         print(f"wallpaper file = {wallpaper_file}")
         pallet = _configure_pywal_colors(wallpaper_file)
 
@@ -73,12 +61,9 @@ def parse_colors(
         colorscheme = json.load(f)
 
     make_pallet_image(colorscheme, theme_path)
-    return {
-        "theme_data": theme_data,
-        "install_script": install_script,
-        "destination_path": "",
-    }
-    return {"theme_data": theme_data, "install_script": install_script}
+    return ToolResult(
+        theme_data=theme_data, install_script=install_script, destination_path=""
+    )
 
 
 def _write_pallet_to_colorscheme(pallet: dict, colorscheme_path: str):

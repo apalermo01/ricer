@@ -1,31 +1,14 @@
 import logging
 import os
 from textwrap import dedent
-from typing import Literal, Optional
 
 from ricer.utils.common import append_text
-from ricer.utils.types import (
-    BaseToolConfig,
-    ThemeContext,
-    ThemeData,
-    ToolResult,
-    UserConfig,
-)
+from ricer.utils.theme_data import ThemeData, ToolResult
+from ricer.utils.types import ThemeContext, UserConfig
 from ricer.utils.wrapper import tool_wrapper
 
 logger = logging.getLogger(__name__)
 
-
-class ZshConfig(BaseToolConfig):
-    feats: Optional[
-        list[
-            Literal[
-                "cowsay_fortune", "neofetch", "fastfetch", "run_pywal", "git_onefetch"
-            ]
-        ]
-    ]
-    zsh: Optional[bool]
-    direnv: Optional[bool]
 
 
 @tool_wrapper(tool="zsh")
@@ -37,27 +20,19 @@ def parse_zsh(
     install_script: str,
 ) -> ToolResult:
     logger.info("configuring zsh... ")
-    assert "zsh" in theme_data
-    assert isinstance(theme_data["zsh"], dict)
+    assert theme_data.zsh
 
-    if "feats" in theme_data["zsh"]:
-        assert isinstance(theme_data["zsh"]["feats"], list)
-        feats = theme_data["zsh"]["feats"]
-    else:
-        feats = []
+    feats = theme_data.zsh.feats
 
-    if theme_data.get("wallpaper"):
-        assert isinstance(theme_data["wallpaper"], dict)
-        wallpaper_file = theme_data["wallpaper"]["file"]
+    if theme_data.wallpaper:
+        wallpaper_file = theme_data.wallpaper.file
         wallpaper_path = os.path.expanduser(f"~/Pictures/wallpapers/{wallpaper_file}")
     else:
         wallpaper_path = ""
 
     prompts_dict = {
-        "cowsay_fortune": (
-            "fortune | cowsay -r \n"
-        ),
-        "neofetch": "neofetch\n",
+        "cowsay_fortune": ("fortune | cowsay -r \n"),
+        "neofetch": "fastfetch\n",
         "fastfetch": "fastfetch\n",
         "run_pywal": f"wal -n -e -i {wallpaper_path} > /dev/null \n",
         "git_onefetch": dedent(
@@ -85,14 +60,15 @@ def parse_zsh(
                 logger.warning("using fastfetch instead of neofetch")
             append_text(dest, prompts_dict[d])
 
-    if theme_data['zsh'].get('zoxide'):
+    if theme_data.zsh.zoxide:
         append_text(dest, 'alias cd="z"\n')
         append_text(dest, 'eval "$(zoxide init zsh)"\n')
 
-    if theme_data['zsh'].get('direnv'):
+    if theme_data.zsh.direnv:
         append_text(dest, 'eval "$(direnv hook zsh)"\n')
-    return {
-        "theme_data": theme_data,
-        "install_script": install_script,
-        "destination_path": destination_path,
-    }
+
+    return ToolResult(
+        theme_data=theme_data,
+        install_script=install_script,
+        destination_path=destination_path,
+    )
