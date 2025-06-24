@@ -61,6 +61,7 @@ def parse_zsh(
             append_text(dest, prompts_dict[d])
 
     if theme_data.zsh.zoxide:
+
         append_text(dest, 'alias cd="z"\n')
         append_text(dest, 'eval "$(zoxide init zsh)"\n')
 
