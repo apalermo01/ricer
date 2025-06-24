@@ -31,7 +31,7 @@ class BashConfig(BaseToolConfig):
 
 
 class ColorsConfig(BaseToolConfig):
-    method: str
+    method: Literal["manual", "pywal"]
 
 
 class DunstConfig(BaseToolConfig):
