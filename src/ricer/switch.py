@@ -29,7 +29,7 @@ def main():
     move_to_dotfiles(user_config, theme_context, dry_run=False)
     if theme_data.hook_path:
         assert isinstance(theme_data.hook_path, str)
-        subprocess.run(["bash", theme_data.hook_path, theme_context.theme_name])
+        subprocess.run(["bash", os.path.expanduser(theme_data.hook_path), theme_context.theme_name])
 
 
 if __name__ == "__main__":
