@@ -1,5 +1,6 @@
 import os
 import sys
+import logging
 from ricer.ricer import (
     build_theme,
     move_to_dotfiles,
@@ -8,6 +9,7 @@ from ricer.ricer import (
 from ricer.utils.args import get_user_config
 import subprocess
 
+logger = logging.getLogger(__name__)
 
 def main():
     user_config = get_user_config()
@@ -29,7 +31,9 @@ def main():
     move_to_dotfiles(user_config, theme_context, dry_run=False)
     if theme_data.hook_path:
         assert isinstance(theme_data.hook_path, str)
-        subprocess.run(["bash", os.path.expanduser(theme_data.hook_path), theme_context.theme_name], shell=True)
+        build_hook = os.path.expanduser(theme_data.hook_path)
+        logger.warning(f"running theme build hook: {build_hook}")
+        subprocess.run(["bash", build_hook, theme_context.theme_name])
 
 
 if __name__ == "__main__":
