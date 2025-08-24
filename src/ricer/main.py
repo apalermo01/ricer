@@ -5,9 +5,9 @@ from ricer.utils.args import get_user_config
 def main():
 
     user_cfg = get_user_config()
-    if user_cfg.get("themes"):
-        list_themes(user_cfg)
-        return
+    # if user_cfg.get("themes"):
+    list_themes(user_cfg)
+    return
 
     if not user_cfg.get("theme"):
         print("No theme provided. Please pick a theme")

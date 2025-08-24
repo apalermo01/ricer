@@ -44,6 +44,8 @@ def parse_profile(config: ThemeData, template_dir: str, theme_path: str):
     profile_dst: str = os.path.join(theme_path, "build", "global", ".profile")
 
     # set up profile
-    os.mkdir(os.path.join(theme_path, "build", "global"))
+    global_path = os.path.join(theme_path, "build", "global")
+    if not os.path.exists(global_path):
+        os.mkdir(global_path)
     shutil.copy2(src=profile_src, dst=profile_dst)
     logger.info(f"{profile_src} -> {profile_dst}")

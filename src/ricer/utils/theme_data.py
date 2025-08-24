@@ -1,4 +1,4 @@
-from typing import Literal, Optional
+from typing import List, Literal, Optional
 
 from pydantic import BaseModel, Field
 
@@ -33,6 +33,12 @@ class BashConfig(BaseToolConfig):
 class ColorsConfig(BaseToolConfig):
     method: Literal["manual", "pywal"]
 
+class CustomConfig(BaseModel):
+    name: str
+    cfg_folder: str
+
+class CustomConfigs(BaseModel):
+    tools: List[CustomConfig]
 
 class DunstConfig(BaseToolConfig):
     pass
@@ -128,6 +134,7 @@ class ThemeData(BaseModel):
     wallpaper: Optional[WallpaperConfig] = None
     yazi: Optional[YaziConfig] = None
     zsh: Optional[ZshConfig] = None
+    custom: Optional[CustomConfigs] = None
 
 
 class ToolResult(BaseModel):

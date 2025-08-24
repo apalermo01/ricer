@@ -1,18 +1,53 @@
-import os
-import sys
+import argparse
 import logging
-from ricer.ricer import (
-    build_theme,
-    move_to_dotfiles,
-    prepare_paths,
-)
-from ricer.utils.args import get_user_config
+import os
 import subprocess
+import sys
+from typing import Optional
+
+from ricer.config import (
+    RICER_DEFAULT_CFG,
+    RICER_DEFAULT_OVERRIDE,
+)
+from ricer.ricer import build_theme, move_to_dotfiles, prepare_paths
+from ricer.utils.args import get_user_config
 
 logger = logging.getLogger(__name__)
 
+
+def parse_args() -> argparse.Namespace:
+    """parse cli args"""
+    parser = argparse.ArgumentParser()
+    # list themes
+    parser.add_argument(
+        "--themes",
+        action=argparse.BooleanOptionalAction,
+        required=False,
+        help="list available themes",
+    )
+
+    # config path
+    parser.add_argument(
+        "--cfg", required=False, default=os.path.expanduser(RICER_DEFAULT_CFG)
+    )
+
+    parser.add_argument(
+        "--global-override",
+        required=False,
+        default=os.path.expanduser(RICER_DEFAULT_OVERRIDE),
+    )
+
+    parser.add_argument("--template-path", required=False)
+    parser.add_argument("--themes-path", required=False)
+    parser.add_argument("--theme", required=False)
+
+    args = parser.parse_args()
+    return args
+
+
 def main():
-    user_config = get_user_config()
+    args = parse_args()
+    user_config = get_user_config(args)
 
     # if not user_config["theme"]:
     #     themes = sorted(os.listdir(user_config["themes_path"]))
@@ -26,6 +61,7 @@ def main():
     #     user_config["theme"] = themes[int(idx)]
 
     theme_data = build_theme(user_config)
+    return
     theme_context = prepare_paths(user_config)
 
     move_to_dotfiles(user_config, theme_context, dry_run=False)

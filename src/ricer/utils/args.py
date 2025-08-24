@@ -7,8 +7,6 @@ import yaml
 import pprint
 
 from ricer.config import (
-    RICER_DEFAULT_CFG,
-    RICER_DEFAULT_OVERRIDE,
     RICER_DEFAULT_SCRIPTS_PATH,
     RICER_DEFAULT_WALLPAPER_PATH,
 )
@@ -39,42 +37,11 @@ def init_theme_config(theme_data_dict: dict[str, str | dict], user_config: UserC
         **args
     )
 
+    print("returning theme data: ", theme_data)
     return theme_data
 
-
-def parse_args():
-    """parse cli args"""
-    parser = argparse.ArgumentParser()
-    # list themes
-    parser.add_argument(
-        "--themes",
-        action=argparse.BooleanOptionalAction,
-        required=False,
-        help="list available themes",
-    )
-
-    # config path
-    parser.add_argument(
-        "--cfg", required=False, default=os.path.expanduser(RICER_DEFAULT_CFG)
-    )
-
-    parser.add_argument(
-        "--global-override",
-        required=False,
-        default=os.path.expanduser(RICER_DEFAULT_OVERRIDE),
-    )
-
-    parser.add_argument("--template-path", required=False)
-    parser.add_argument("--themes-path", required=False)
-    parser.add_argument("--theme", required=False)
-
-    args = parser.parse_args()
-    return args
-
-
-def get_user_config() -> UserConfig:
+def get_user_config(args: argparse.Namespace) -> UserConfig:
     """get all the variables we need for the project"""
-    args = parse_args()
     cfg_path = os.path.expanduser(args.cfg)
 
     with open(cfg_path, "r") as f:

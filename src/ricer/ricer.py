@@ -34,6 +34,7 @@ RICER_CONFIG = {
         "okular",
         "yazi",
         "wallpaper",
+        "custom"
     ],
 }
 
@@ -44,7 +45,6 @@ def list_themes(user_config: UserConfig):
 
 
 def prepare_paths(cfg: UserConfig) -> ThemeContext:
-    print("user config = ", cfg)
     theme_name = cfg.theme
     theme_path = os.path.join(cfg.themes_path, theme_name)
     build_dir = os.path.join(theme_path, "build")
@@ -90,7 +90,8 @@ def build_theme(user_config: UserConfig) -> ThemeData:
 
     theme_data_dict = merge_dicts(_theme_data, override_dict)
     theme_data: ThemeData = init_theme_config(theme_data_dict, user_config)
-
+    
+    logger.info(f"theme data keys: {theme_data.model_dump().keys()}")
     install_script_path = os.path.join(
         theme_context.theme_path, "scripts", "install_theme.sh"
     )
@@ -114,6 +115,7 @@ def build_theme(user_config: UserConfig) -> ThemeData:
     # loop over all tools in the config
     # call the associated parser each time
     theme_data_dict = theme_data.model_dump()
+        
     for tool in RICER_CONFIG["order"]:
         if tool in theme_data_dict and theme_data_dict[tool] is not None:
             res = modules[tool](
