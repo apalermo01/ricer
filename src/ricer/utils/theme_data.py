@@ -1,6 +1,6 @@
-from typing import Literal, Optional
+from typing import Literal, Optional, Self
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
 
 class FileAction(BaseModel):
@@ -86,9 +86,18 @@ class TmuxConfig(BaseToolConfig):
     pass
 
 
-class WallpaperConfig(BaseToolConfig):
+class WPValidator(BaseModel):
+    @model_validator(mode='after')
+    def check_file(self) -> Self:
+        data = self.model_dump()
+        if data['file'] is None and data['random'] == False:
+            raise ValueError("file required if not using a random wallpaper")
+        return self
+
+class WallpaperConfig(WPValidator):
     method: Literal["feh", "hyprpaper", "None"] = "None"
-    file: str
+    file: str | None = None
+    random: bool = False
 
 
 class YaziConfig(BaseToolConfig):

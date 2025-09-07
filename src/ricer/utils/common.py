@@ -5,6 +5,7 @@ from jinja2 import Template
 
 
 def merge_dicts(a: dict, b: dict) -> dict:
+    """Override keys in dictionary a with those in dictionary b"""
     for k in b:
         if k in a:
             if isinstance(a[k], dict) and isinstance(b[k], dict):
