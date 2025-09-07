@@ -1,6 +1,7 @@
 import logging
 import os
 import shutil
+import random
 
 from ricer.utils.theme_data import ThemeData, ToolResult
 from ricer.utils.types import ThemeContext
@@ -18,10 +19,11 @@ def parse_wallpaper(
     **kwargs,
 ) -> ToolResult:
     logger.info("configuring wallpaper... ")
-    # assert "wallpaper" in theme_data and isinstance(theme_data["wallpaper"], dict)
+
     assert theme_data.wallpaper
     method = theme_data.wallpaper.method
     theme_path = theme_context.theme_path
+
 
     if method == "feh":
         feh_theme(
@@ -55,13 +57,18 @@ def move_wp_only(
     theme_path: str,
 ):
 
-    logger.info("moving wallpaper only")
+    logger.info("moving wallpaper")
+
     assert config.wallpaper
+    assert config.wallpaper.file
 
     wallpaper_path: str = config.wallpaper.file
 
+    if config.wallpaper.random:
+        wallpaper_path = os.path.join(theme_path, "wallpapers", wallpaper_path)
+
     # if just the filename was given, look in the project's wallpaper folder:
-    if "/" not in wallpaper_path:
+    elif "/" not in wallpaper_path:
         wallpaper_path = os.path.join(".", "wallpapers", wallpaper_path)
 
     wallpaper_dest: str = os.path.expanduser(
@@ -77,12 +84,23 @@ def move_wp_only(
 
 def feh_theme(config: ThemeData, theme_path: str):
     logger.info("setting up feh")
-    assert config.wallpaper
-    wallpaper_path: str = config.wallpaper.file
 
-    # if just the filename was given, look in the project's wallpaper folder:
-    if "/" not in wallpaper_path:
-        wallpaper_path = os.path.join(".", "wallpapers", wallpaper_path)
+
+    assert config.wallpaper
+    assert config.wallpaper.file
+
+    # random wallpaper: look in theme_path / wallpapers and pick one
+    if config.wallpaper.random:
+        wp_folder: str = os.path.join(theme_path, "wallpapers")
+
+        wallpaper_path: str = os.path.join(wp_folder, config.wallpaper.file)
+
+    else:
+        wallpaper_path: str = config.wallpaper.file
+
+        # if just the filename was given, look in the project's wallpaper folder:
+        if "/" not in wallpaper_path:
+            wallpaper_path = os.path.join(".", "wallpapers", wallpaper_path)
 
     wallpaper_dest: str = os.path.expanduser(
         f"~/Pictures/wallpapers/{wallpaper_path.split('/')[-1]}"
@@ -111,6 +129,8 @@ def feh_theme(config: ThemeData, theme_path: str):
             f.write(text)
 
     logger.info(f"added {text} to i3 config")
+
+    move_wp_only(config, theme_path)
 
     # write wallpaper cmd to a script
     # cmd_text: str = f"feh --bg-fill {wallpaper_dest}"

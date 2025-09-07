@@ -1,5 +1,6 @@
 import logging
 import os
+import random
 import shutil
 from typing import Optional
 
@@ -88,6 +89,7 @@ def build_theme(user_config: UserConfig) -> ThemeData:
     with open(user_config.override_path, "r") as f:
         override_dict = yaml.safe_load(f)
 
+    # Keys in override dict take prescidence over the theme keys
     theme_data_dict = merge_dicts(_theme_data, override_dict)
     theme_data: ThemeData = init_theme_config(theme_data_dict, user_config)
 
@@ -113,6 +115,12 @@ def build_theme(user_config: UserConfig) -> ThemeData:
 
     # loop over all tools in the config
     # call the associated parser each time
+
+    if theme_data.wallpaper and theme_data.wallpaper.random:
+        wp_folder = os.path.join(theme_context.theme_path, "wallpapers")
+        wp_file = random.choice(os.listdir(wp_folder))
+        theme_data.wallpaper.file = wp_file
+
     theme_data_dict = theme_data.model_dump()
     for tool in RICER_CONFIG["order"]:
         if tool in theme_data_dict and theme_data_dict[tool] is not None:
