@@ -14,7 +14,7 @@ dependencies = [
     "jinja2",
     "matplotlib",
     "numpy",
-    "toml"
+    "toml",
 ]
 
 [project.optional-dependencies]
