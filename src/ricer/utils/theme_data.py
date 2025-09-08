@@ -1,4 +1,4 @@
-from typing import Literal, Optional, Self
+from typing import Literal, Optional
 
 from pydantic import BaseModel, Field, model_validator
 
@@ -88,7 +88,7 @@ class TmuxConfig(BaseToolConfig):
 
 class WPValidator(BaseModel):
     @model_validator(mode='after')
-    def check_file(self) -> Self:
+    def check_file(self):
         data = self.model_dump()
         if data['file'] is None and data['random'] == False:
             raise ValueError("file required if not using a random wallpaper")
