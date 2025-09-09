@@ -32,8 +32,8 @@ def parse_zsh(
 
     prompts_dict = {
         "cowsay_fortune": ("fortune | cowsay -r \n"),
-        "neofetch": "fastfetch\n",
-        "fastfetch": "fastfetch\n",
+        "neofetch": "if command -v fastfetch >/dev/null 2>&1\nthen\n\tfastfetch\nfi\n",
+        "fastfetch": "if command -v fastfetch >/dev/null 2>&1\nthen\n\tfastfetch\nfi\n",
         "run_pywal": f"wal -n -e -i {wallpaper_path} > /dev/null \n",
         "git_onefetch": dedent(
             """
@@ -62,11 +62,11 @@ def parse_zsh(
 
     if theme_data.zsh.zoxide:
 
-        append_text(dest, 'alias cd="z"\n')
-        append_text(dest, 'eval "$(zoxide init zsh)"\n')
+        append_text(dest, 'if command -v z >/dev/null 2>&1\nthen\n\talias cd="z"\nfi\n')
+        append_text(dest, 'if command -v zoxide >/dev/null 2>&1\nthen\n\teval "$(zoxide init zsh)"\nfi\n')
 
     if theme_data.zsh.direnv:
-        append_text(dest, 'eval "$(direnv hook zsh)"\n')
+        append_text(dest, 'if command -v direnv >/dev/null 2>&1\nthen\n\teval "$(direnv hook zsh)"\nfi\n')
 
     return ToolResult(
         theme_data=theme_data,
