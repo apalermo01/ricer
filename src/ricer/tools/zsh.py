@@ -62,11 +62,19 @@ def parse_zsh(
 
     if theme_data.zsh.zoxide:
 
-        append_text(dest, 'if command -v z >/dev/null 2>&1\nthen\n\talias cd="z"\nfi\n')
-        append_text(dest, 'if command -v zoxide >/dev/null 2>&1\nthen\n\teval "$(zoxide init zsh)"\nfi\n')
+        append_text(dest, """
+if command -v zoxide >/dev/null 2>&1; then
+    eval "$(zoxide init zsh)"
+    alias cd="z" 
+fi
+""")
 
     if theme_data.zsh.direnv:
-        append_text(dest, 'if command -v direnv >/dev/null 2>&1\nthen\n\teval "$(direnv hook zsh)"\nfi\n')
+        append_text(dest, """
+if command -v direnv >/dev/null 2>&1; then
+    eval "$(direnv hook zsh)"
+fi
+""")
 
     return ToolResult(
         theme_data=theme_data,
