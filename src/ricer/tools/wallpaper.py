@@ -78,8 +78,11 @@ def move_wp_only(
     if not os.path.exists(os.path.expanduser("~/Pictures/wallpapers/")):
         os.makedirs(os.path.expanduser("~/Pictures/wallpapers/"))
 
-    shutil.copy2(src=wallpaper_path, dst=wallpaper_dest)
-    logger.info(f"copied {wallpaper_path} to {wallpaper_dest}")
+    if not os.path.exists(wallpaper_path):
+        logger.warning(f"could not find wallpaper {wallpaper_path}. It may already be in ~/Pictures/wallpapers")
+    else:
+        shutil.copy2(src=wallpaper_path, dst=wallpaper_dest)
+        logger.info(f"copied {wallpaper_path} to {wallpaper_dest}")
 
 
 def feh_theme(config: ThemeData, theme_path: str):
