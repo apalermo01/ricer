@@ -116,7 +116,7 @@ class ZshConfig(BaseToolConfig):
 class ThemeData(BaseModel):
     font: Optional[str] = None
     font_size: Optional[int] = None
-    hook_path: Optional[str] = None
+    hook_path: Optional[list] = None
 
     alacritty: Optional[AlacrittyConfig] = None
     apps: Optional[AppsConfig] = None

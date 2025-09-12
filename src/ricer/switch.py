@@ -30,10 +30,17 @@ def main():
 
     move_to_dotfiles(user_config, theme_context, dry_run=False)
     if theme_data.hook_path:
-        assert isinstance(theme_data.hook_path, str)
-        build_hook = os.path.expanduser(theme_data.hook_path)
-        logger.warning(f"running theme build hook: {build_hook}")
-        subprocess.run(["bash", build_hook, theme_context.theme_name])
+        assert isinstance(theme_data.hook_path, list)
+        for f in theme_data.hook_path:
+            if '$THIS_THEME' in f:
+                f = f.replace('$THIS_THEME', theme_context.theme_name)
+            if '$THEME_NAME' in f:
+                f = f.replace('$THEME_NAME', theme_context.theme_name)
+            logger.warning(f"running theme build hook: {f}")
+            hook_list = f.split(" ")
+            args = hook_list[1:]
+            script = os.path.expanduser(hook_list[0])
+            subprocess.run(["bash", script, *args])
 
 
 if __name__ == "__main__":
