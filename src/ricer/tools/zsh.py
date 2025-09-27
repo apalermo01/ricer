@@ -61,7 +61,6 @@ def parse_zsh(
             append_text(dest, prompts_dict[d])
 
     if theme_data.zsh.zoxide:
-
         append_text(dest, """
 if command -v zoxide >/dev/null 2>&1; then
     eval "$(zoxide init zsh)"
