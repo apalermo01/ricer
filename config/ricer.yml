@@ -5,6 +5,14 @@ themes_path: '~/Documents/git/dotfiles/themes'
 wallpaper_path: '~/Pictures/wallpapers/'
 
 tools:
+  dunst: 
+    config_path: '.config/dunst'
+    jinja: False 
+
+  sioyek:
+    config_path: '.config/sioyek'
+    jinja: False
+
   i3:
     config_path: '.config/i3'
     jinja: True

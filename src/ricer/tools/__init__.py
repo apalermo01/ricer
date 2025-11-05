@@ -14,9 +14,10 @@ from . import (
     picom,
     polybar,
     rofi,
+    sioyek,
     tmux,
-    yazi,
     wallpaper,
+    yazi,
     zsh,
 )
 
@@ -36,6 +37,7 @@ modules = {
     "polybar": polybar.parse_polybar,
     "rofi": rofi.parse_rofi,
     "tmux": tmux.parse_tmux,
+    "sioyek": sioyek.parse_sioyek,
     "yazi": yazi.parse_yazi,
     "zsh": zsh.parse_zsh,
     "nvim": nvim.parse_nvim,

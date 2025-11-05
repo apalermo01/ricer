@@ -17,6 +17,7 @@ in
     };
 
     propagatedBuildInputs = with py.pkgs; [
+      pyright
       pydantic
       pyyaml
       jinja2
