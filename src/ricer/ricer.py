@@ -1,4 +1,5 @@
 import logging
+import pprint
 import os
 import random
 import shutil
@@ -10,8 +11,8 @@ from ricer.tools import modules
 from ricer.utils.args import init_theme_config
 from ricer.utils.colors import configure_colors
 from ricer.utils.common import merge_dicts
-from ricer.utils.types import ThemeContext, UserConfig
 from ricer.utils.theme_data import ThemeData
+from ricer.utils.types import ThemeContext, UserConfig
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -34,6 +35,8 @@ RICER_CONFIG = {
         "fastfetch",
         "okular",
         "yazi",
+        "sioyek",
+        "dunst",
         "wallpaper",
     ],
 }
@@ -45,7 +48,8 @@ def list_themes(user_config: UserConfig):
 
 
 def prepare_paths(cfg: UserConfig) -> ThemeContext:
-    print("user config = ", cfg)
+    print("********************** user config *********************")
+    pprint.pp(cfg.model_dump())
     theme_name = cfg.theme
     theme_path = os.path.join(cfg.themes_path, theme_name)
     build_dir = os.path.join(theme_path, "build")
@@ -60,19 +64,21 @@ def prepare_paths(cfg: UserConfig) -> ThemeContext:
         theme_cfg = os.path.join(theme_path, "theme.yaml")
     else:
         raise RuntimeError("theme.yml or theme.yaml not found")
-    
+
     return ThemeContext(
-        template_path = template_path,
-        theme_path = theme_path,
-        theme_name = theme_name,
-        theme_cfg = theme_cfg,
-        build_dir = build_dir
+        template_path=template_path,
+        theme_path=theme_path,
+        theme_name=theme_name,
+        theme_cfg=theme_cfg,
+        build_dir=build_dir,
     )
 
 
 def build_theme(user_config: UserConfig) -> ThemeData:
     """Builds a suite of dotfiles based on config file"""
-    # gen_schema()
+
+    print("************************ user config ************************")
+    pprint.pp(user_config)
     theme_context = prepare_paths(user_config)
     build_dir = theme_context.build_dir
     if os.path.exists(build_dir):
@@ -122,8 +128,15 @@ def build_theme(user_config: UserConfig) -> ThemeData:
         theme_data.wallpaper.file = wp_file
 
     theme_data_dict = theme_data.model_dump()
+    print("******************* theme data *******************")
+    pprint.pp(theme_data_dict)
+    assert 'dunst' in theme_data_dict
+    assert theme_data_dict['dunst'] is not None
     for tool in RICER_CONFIG["order"]:
         if tool in theme_data_dict and theme_data_dict[tool] is not None:
+            logger.info("*" * 80)
+            logger.info(f"*** {tool} " + "*" * (80 - len(tool) - 5))
+            logger.info("*" * 80)
             res = modules[tool](
                 theme_data=theme_data,
                 theme_context=theme_context,
@@ -220,4 +233,5 @@ def move_to_dotfiles(
 
     if not dry_run:
         shutil.copy2(install_src, install_dst)
+
     logger.info(f"{install_src} -> {install_dst}")

@@ -35,7 +35,7 @@ class ColorsConfig(BaseToolConfig):
 
 
 class DunstConfig(BaseToolConfig):
-    pass
+    font_size: Optional[int] = None
 
 
 class FastfetchConfig(BaseToolConfig):
@@ -81,6 +81,8 @@ class PolybarConfig(BaseToolConfig):
 class RofiConfig(BaseToolConfig):
     pass
 
+class SioyekConfig(BaseToolConfig):
+    pass 
 
 class TmuxConfig(BaseToolConfig):
     pass
@@ -133,6 +135,7 @@ class ThemeData(BaseModel):
     picom: Optional[PicomConfig] = None
     polybar: Optional[PolybarConfig] = None
     rofi: Optional[RofiConfig] = None
+    sioyek: Optional[SioyekConfig] = None
     tmux: Optional[TmuxConfig] = None
     wallpaper: Optional[WallpaperConfig] = None
     yazi: Optional[YaziConfig] = None
