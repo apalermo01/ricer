@@ -26,7 +26,7 @@ dev = [
 ricer = "ricer.cli:main"
 
 [tool.setuptools.packages.find]
-where = ["src", "config"]
+where = ["src"]
 
 [tool.setuptools.package-data]
-"ricer" = ["config/*.yml"]
+"ricer" = ["default_cfg_files/*.yml"]
