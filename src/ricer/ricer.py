@@ -130,8 +130,6 @@ def build_theme(user_config: UserConfig) -> ThemeData:
     theme_data_dict = theme_data.model_dump()
     print("******************* theme data *******************")
     pprint.pp(theme_data_dict)
-    assert 'dunst' in theme_data_dict
-    assert theme_data_dict['dunst'] is not None
     for tool in RICER_CONFIG["order"]:
         if tool in theme_data_dict and theme_data_dict[tool] is not None:
             logger.info("*" * 80)
