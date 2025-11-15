@@ -34,9 +34,9 @@ def parse_apps(
     # add the correct calls to the theme install script
     for key in apps_config.requires:
         if key == "qt.colorscheme":
-            install_script += f"if command -v {apps_config.requires[key]}; then"
+            install_script += f"if command -v {apps_config.requires[key]}; then\n"
             install_script += f"    {apps_config.requires[key]} {app_theme_name}\n"
-            install_script += f"fi"
+            install_script += f"fi\n\n"
         elif key in ["kvantum", "gtk"]:
             logger.warning(f"{key} support is in progress, skipping")
             continue
