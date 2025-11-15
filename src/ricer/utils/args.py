@@ -78,7 +78,11 @@ def get_user_config() -> UserConfig:
     cfg_path = os.path.expanduser(args.cfg)
 
     if not os.path.exists(cfg_path):
-        cfg_path = "./config/ricer.yml"
+        logger.warning(f"config at {cfg_path} not found. auto-generating...")
+        os.makedirs(os.path.basename(cfg_path))
+        import sys, shutil
+        pkgdir = sys.modules['ricer'].__path__[0]
+        shutil.copy(os.path.join(pkgdir, "config", "ricer.yml"), cfg_path)
 
     with open(cfg_path, "r") as f:
         cfg = yaml.safe_load(f)
