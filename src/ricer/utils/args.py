@@ -82,7 +82,7 @@ def get_user_config() -> UserConfig:
         os.makedirs(os.path.dirname(cfg_path), exist_ok=True)
         import sys, shutil
         pkgdir = sys.modules['ricer'].__path__[0]
-        shutil.copy(os.path.join(pkgdir, "config", "ricer.yml"), cfg_path)
+        shutil.copy(os.path.join(pkgdir, "default_cfg_files", "ricer.yml"), cfg_path)
 
     with open(cfg_path, "r") as f:
         cfg = yaml.safe_load(f)
