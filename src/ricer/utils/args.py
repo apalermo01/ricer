@@ -79,7 +79,7 @@ def get_user_config() -> UserConfig:
 
     if not os.path.exists(cfg_path):
         logger.warning(f"config at {cfg_path} not found. auto-generating...")
-        os.makedirs(os.path.dirname(cfg_path))
+        os.makedirs(os.path.dirname(cfg_path), exist_ok=True)
         import sys, shutil
         pkgdir = sys.modules['ricer'].__path__[0]
         shutil.copy(os.path.join(pkgdir, "config", "ricer.yml"), cfg_path)
