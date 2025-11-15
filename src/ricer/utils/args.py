@@ -107,6 +107,12 @@ def get_user_config() -> UserConfig:
     else:
         theme = args.theme
 
+    if not os.path.exists(args.global_override):
+        logger.warning(f"{args.global_override} not found. Auto-generating...")
+        os.makedirs(os.path.dirname(args.global_override), exist_ok=True)
+        import sys, shutil
+        pkgdir = sys.modules['ricer'].__path__[0]
+        shutil.copy(os.path.join(pkgdir, "default_cfg_files", "ricer-global.yml"), cfg_path)
     user_config = UserConfig(
         cfg_path = cfg_path,
         override_path = os.path.expanduser(args.global_override),
