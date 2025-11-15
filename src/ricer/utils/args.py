@@ -77,6 +77,9 @@ def get_user_config() -> UserConfig:
     args = parse_args()
     cfg_path = os.path.expanduser(args.cfg)
 
+    if not os.path.exists(cfg_path):
+        cfg_path = "./config/ricer.yml"
+
     with open(cfg_path, "r") as f:
         cfg = yaml.safe_load(f)
 
