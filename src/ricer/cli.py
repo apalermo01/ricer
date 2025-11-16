@@ -6,16 +6,19 @@ from ricer.switch import main as switch_main
 def main() -> None:
 
     if len(sys.argv) < 2:
-        print("Usage: ricer switch [options]", file=sys.stderr)
+        print("Usage: ricer switch", file=sys.stderr)
+        print("       ricer switch --theme [theme name]", file=sys.stderr)
+        print("       ricer switch --theme [theme name] \\", file=sys.stderr)
+        print("                    --root ~/Documents/git/dotfiles \\", file=sys.stderr)
+        print(" ", file=sys.stderr)
+        print("                    --cfg ~/.config/ricer/ricer.yml \\", file=sys.stderr)
+        print("                    --global-override ~/.config/ricer/ricer-global.yml \\", file=sys.stderr)
+        print("                    --template-path ~/Documents/git/dotfiles/templates \\", file=sys.stderr)
+        print("                    --themes-path ~/Documents/git/dotfiles/themes \\", file=sys.stderr)
         sys.exit(1)
 
-    # elif sys.argv[1] == "switch":
     sys.argv.pop(1)
     switch_main()
-
-    # elif sys.argv[1] == "schema":
-    #     sys.argv.pop(1)
-    #     schema_main()
 
 
 if __name__ == "__main__":
