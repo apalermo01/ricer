@@ -126,7 +126,7 @@ def get_user_config() -> UserConfig:
         themes_path = os.path.expanduser(cfg["themes_path"])
         scripts_root = os.path.expanduser(cfg["scripts_root"])
         dotfiles_path = os.path.expanduser(cfg["dotfiles_path"])
-        template_path = os.path.expanduser(cfg["templates"])
+        template_path = os.path.expanduser(cfg["template_path"])
 
     if not args.theme:
         themes = sorted(os.listdir(themes_path))
