@@ -121,10 +121,12 @@ def get_user_config() -> UserConfig:
         themes_path = os.path.expanduser(os.path.join(args.root, "themes"))
         scripts_root = os.path.expanduser(os.path.join(args.root, "user_scripts"))
         dotfiles_path = os.path.expanduser(os.path.join(args.root, "built_themes"))
+        template_path = os.path.expanduser(os.path.join(args.root, "templates"))
     else:
         themes_path = os.path.expanduser(cfg["themes_path"])
         scripts_root = os.path.expanduser(cfg["scripts_root"])
         dotfiles_path = os.path.expanduser(cfg["dotfiles_path"])
+        template_path = os.path.expanduser(cfg["templates"])
 
     if not args.theme:
         themes = sorted(os.listdir(themes_path))
@@ -154,7 +156,7 @@ def get_user_config() -> UserConfig:
         cfg_path=cfg_path,
         override_path=os.path.expanduser(args.global_override),
         list_themes=cfg.get("themes"),
-        template_path=os.path.expanduser(cfg["template_path"]),
+        template_path=template_path,
         themes_path=themes_path,
         wallpaper_path=os.path.expanduser(cfg["wallpaper_path"]),
         scripts_root=scripts_root,

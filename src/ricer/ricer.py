@@ -172,13 +172,13 @@ def move_to_dotfiles(
 
     path_config = user_config.tools
 
-    if "git" not in dotfiles_path or len(dotfiles_path) < 8:
-        raise ValueError(
-            f"'git' is not in the dotfiles path OR the path is "
-            + "less than 8 characters. While not a bug, this is "
-            + "suspicious, so I'm crashing. To fix this, just "
-            + "put the dotfiles retool in a folder called 'git'"
-        )
+    # if "git" not in dotfiles_path or len(dotfiles_path) < 8:
+    #     raise ValueError(
+    #         f"'git' is not in the dotfiles path OR the path is "
+    #         + "less than 8 characters. While not a bug, this is "
+    #         + "suspicious, so I'm crashing. To fix this, just "
+    #         + "put the dotfiles retool in a folder called 'git'"
+    #     )
 
     if os.path.exists(dotfiles_path):
         logger.info(f"removing {dotfiles_path}")
