@@ -19,6 +19,7 @@ logging.basicConfig(level=logging.INFO)
 
 RICER_CONFIG = {
     "order": [
+        "wallpaper",
         "colors",
         "apps",
         "i3",
@@ -37,7 +38,6 @@ RICER_CONFIG = {
         "yazi",
         "sioyek",
         "dunst",
-        "wallpaper",
     ],
 }
 
