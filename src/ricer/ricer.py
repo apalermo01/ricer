@@ -8,21 +8,20 @@ from typing import Optional
 import yaml
 
 from ricer.tools import modules
+from ricer.tools.wallpaper import move_wp_only
 from ricer.utils.args import init_theme_config
 from ricer.utils.colors import configure_colors
 from ricer.utils.common import merge_dicts
 from ricer.utils.theme_data import ThemeData
 from ricer.utils.types import ThemeContext, UserConfig
-
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
 RICER_CONFIG = {
     "order": [
-        "i3",
-        "wallpaper",
         "colors",
         "apps",
+        "i3",
         "polybar",
         "nvim",
         "tmux",
@@ -38,6 +37,7 @@ RICER_CONFIG = {
         "yazi",
         "sioyek",
         "dunst",
+        "wallpaper",
     ],
 }
 
@@ -117,19 +117,23 @@ def build_theme(user_config: UserConfig) -> ThemeData:
         destination_path="",
     )
 
-    # tools_updated["global"] = {"desination_path": t}
 
-    # loop over all tools in the config
-    # call the associated parser each time
-
+    # random wallpaper selection
     if theme_data.wallpaper and theme_data.wallpaper.random:
         wp_folder = os.path.join(theme_context.theme_path, "wallpapers")
         wp_file = random.choice(os.listdir(wp_folder))
         theme_data.wallpaper.file = wp_file
 
+    # make sure wallpaper is in the correct place 
+    if theme_data.wallpaper:
+        move_wp_only(theme_data, theme_context.theme_path)
+
     theme_data_dict = theme_data.model_dump()
     print("******************* theme data *******************")
     pprint.pp(theme_data_dict)
+
+    # loop over all tools in the config
+    # call the associated parser each time
     for tool in RICER_CONFIG["order"]:
         if tool in theme_data_dict and theme_data_dict[tool] is not None:
             logger.info("*" * 80)
