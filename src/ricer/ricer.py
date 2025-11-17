@@ -124,13 +124,15 @@ def build_theme(user_config: UserConfig) -> ThemeData:
         wp_file = random.choice(os.listdir(wp_folder))
         theme_data.wallpaper.file = wp_file
 
-    # make sure wallpaper is in the correct place 
-    if theme_data.wallpaper:
-        move_wp_only(theme_data, theme_context.theme_path)
 
     theme_data_dict = theme_data.model_dump()
     print("******************* theme data *******************")
     pprint.pp(theme_data_dict)
+
+    # make sure wallpaper is in the correct place 
+    print("moving wallpaper...")
+    if theme_data.wallpaper:
+        move_wp_only(theme_data, theme_context.theme_path)
 
     # loop over all tools in the config
     # call the associated parser each time
