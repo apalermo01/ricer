@@ -31,7 +31,7 @@ tools:
     config_path: '.config/nvim'
 
   tmux:
-    config_path: ''
+    config_path: '.config/tmux'
   
   zsh: 
     config_path: ''
