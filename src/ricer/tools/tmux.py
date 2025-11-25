@@ -19,7 +19,7 @@ def parse_tmux(
     logger.info("configuring tmux... ")
     # put the run command for tpm at the very bottom
 
-    with open(os.path.join(destination_path, ".tmux.conf"), "a") as f:
+    with open(os.path.join(destination_path, "tmux.conf"), "a") as f:
         f.write("run '~/.tmux/plugins/tpm/tpm'")
 
     return ToolResult(
