@@ -97,7 +97,6 @@ def get_user_config() -> UserConfig:
     # load main ricer cfg
     # where files for each tool should go
     cfg_path = os.path.expanduser(args.cfg)
-
     with open(cfg_path, "r") as f:
         cfg = yaml.safe_load(f)
 
