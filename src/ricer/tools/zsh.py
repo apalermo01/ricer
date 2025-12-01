@@ -1,5 +1,6 @@
 import logging
 import os
+from pprint import pprint
 from textwrap import dedent
 
 from ricer.utils.common import append_text
@@ -22,6 +23,7 @@ def parse_zsh(
     logger.info("configuring zsh... ")
     assert theme_data.zsh
 
+    pprint(theme_data.zsh)
     feats = theme_data.zsh.feats
 
     if theme_data.wallpaper:
@@ -59,7 +61,6 @@ def parse_zsh(
             if d == "neofetch":
                 logger.warning("using fastfetch instead of neofetch")
             append_text(dest, prompts_dict[d])
-
     if theme_data.zsh.zoxide:
         append_text(dest, """
 if command -v zoxide >/dev/null 2>&1; then

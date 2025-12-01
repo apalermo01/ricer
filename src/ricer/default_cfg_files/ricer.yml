@@ -3,6 +3,9 @@ scripts_root: '~/Documents/git/dotfiles/user_scripts/'
 dotfiles_path: '~/Documents/git/dotfiles/built_themes'
 themes_path: '~/Documents/git/dotfiles/themes'
 wallpaper_path: '~/Pictures/wallpapers/'
+ricer_before_override: '~/.config/ricer/ricer-global-before.yml'
+ricer_after_override: '~/.config/ricer/ricer-global-after.yml'
+ricer_defaulf_cfg: '~/.config/ricer/ricer.yml'
 
 tools:
   dunst: 

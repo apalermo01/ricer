@@ -1,5 +1,8 @@
 import sys
+
 from ricer.switch import main as switch_main
+from ricer.utils.install import detect_install
+
 # from ricer.utils.generate_schema import main as schema_main
 
 
@@ -12,12 +15,22 @@ def main() -> None:
         print("                    --root ~/Documents/git/dotfiles \\", file=sys.stderr)
         print(" ", file=sys.stderr)
         print("                    --cfg ~/.config/ricer/ricer.yml \\", file=sys.stderr)
-        print("                    --global-override ~/.config/ricer/ricer-global.yml \\", file=sys.stderr)
-        print("                    --template-path ~/Documents/git/dotfiles/templates \\", file=sys.stderr)
-        print("                    --themes-path ~/Documents/git/dotfiles/themes \\", file=sys.stderr)
+        print(
+            "                    --global-override ~/.config/ricer/ricer-global.yml \\",
+            file=sys.stderr,
+        )
+        print(
+            "                    --template-path ~/Documents/git/dotfiles/templates \\",
+            file=sys.stderr,
+        )
+        print(
+            "                    --themes-path ~/Documents/git/dotfiles/themes \\",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     sys.argv.pop(1)
+    detect_install()
     switch_main()
 
 

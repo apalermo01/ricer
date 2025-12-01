@@ -19,7 +19,9 @@ There are 5 paths to consider when setting up ricer:
 add ricer.nix to you overlays
 
 ## Non-nix
-install via pip (WIP)
+Install via pipx:
+
+`pipx install git+https://github.com/apalermo01/rices.git`
 
 ## Changing themes 
 run `ricer switch` to list the themes in themes_path and pick which one to apply.
@@ -72,4 +74,10 @@ These are the options available for **all tools**
 **Tool specific settings**
 To quickly access the additional settings available for each tool, see the tool modules in `src/ricer/tools` - each file has a TypedDict that extends the base configuration options with the additional settings that are available.
 
+# Misc notes
 
+start distrobox for a clean env:
+
+```zsh
+distrobox create --name test --init --image ubuntu:latest -H ~/Documents/distbox-test --volume /home/alex/Documents/git/dotfiles:/home/alex/Documents/git/dotfiles:rw
+```
