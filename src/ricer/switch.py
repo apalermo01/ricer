@@ -14,17 +14,6 @@ logger = logging.getLogger(__name__)
 def main():
     user_config = get_user_config()
 
-    # if not user_config["theme"]:
-    #     themes = sorted(os.listdir(user_config["themes_path"]))
-    #     print("select a theme: ")
-    #     for i, t in enumerate(themes):
-    #         print(f"[{i}] {t}")
-    #     idx = input()
-    #     if not idx.isdigit() or int(idx) < 0 or int(idx) > len(themes):
-    #         print("invalid theme index")
-    #         sys.exit(1)
-    #     user_config["theme"] = themes[int(idx)]
-
     theme_data = build_theme(user_config)
     theme_context = prepare_paths(user_config)
 

@@ -20,7 +20,8 @@ class ThemeContext(BaseModel):
 
 class UserConfig(BaseModel):
     cfg_path: str
-    override_path: str
+    before_override_path: str
+    after_override_path: str
     template_path: str
     themes_path: str
     dotfiles_path: str

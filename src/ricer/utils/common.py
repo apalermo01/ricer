@@ -4,13 +4,15 @@ import json
 from jinja2 import Template
 
 
-def merge_dicts(a: dict, b: dict) -> dict:
+def merge_dicts(a: dict, b: dict, warn: bool = False) -> dict:
     """Override keys in dictionary a with those in dictionary b"""
     for k in b:
         if k in a:
             if isinstance(a[k], dict) and isinstance(b[k], dict):
                 a[k] = merge_dicts(a[k], b[k])
             else:
+                if warn:
+                    logger.warn(f"overriding {k}: {a[k]} with {k}: {b[k]}")
                 a[k] = b[k]
         else:
             a[k] = b[k]

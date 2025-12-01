@@ -7,12 +7,13 @@ import sys
 
 import yaml
 
-from ricer.config import (
-    RICER_DEFAULT_CFG,
-    RICER_DEFAULT_OVERRIDE,
-    RICER_DEFAULT_SCRIPTS_PATH,
-    RICER_DEFAULT_WALLPAPER_PATH,
-)
+# from ricer.config import (
+#     RICER_DEFAULT_CFG,
+#     RICER_BEFORE_OVERRIDE,
+#     RICER_AFTER_OVERRIDE,
+#     RICER_DEFAULT_SCRIPTS_PATH,
+#     RICER_DEFAULT_WALLPAPER_PATH,
+# )
 from ricer.utils.theme_data import ThemeData
 from ricer.utils.types import UserConfig
 
@@ -43,6 +44,10 @@ def init_theme_config(
 
 def parse_args():
     """parse cli args"""
+
+    with open(os.path.expanduser("~/.config/ricer/ricer.yml"), 'r') as f:
+        defaults = yaml.safe_load(f)
+
     parser = argparse.ArgumentParser()
     # list themes
     parser.add_argument(
@@ -54,15 +59,20 @@ def parse_args():
 
     # config path
     parser.add_argument(
-        "--cfg", required=False, default=os.path.expanduser(RICER_DEFAULT_CFG)
+        "--cfg", required=False, default=os.path.expanduser(defaults['ricer_defaulf_cfg'])
     )
 
     parser.add_argument(
-        "--global-override",
+        "--global-override-before",
         required=False,
-        default=os.path.expanduser(RICER_DEFAULT_OVERRIDE),
+        default=os.path.expanduser(defaults['ricer_before_override']),
     )
 
+    parser.add_argument(
+        "--global-override-after",
+        required=False,
+        default=os.path.expanduser(defaults['ricer_after_override']),
+    )
     parser.add_argument("--template-path", required=False)
     parser.add_argument("--themes-path", required=False)
     parser.add_argument("--theme", required=False)
@@ -84,6 +94,13 @@ def get_user_config() -> UserConfig:
     """
     args = parse_args()
 
+    # load main ricer cfg
+    # where files for each tool should go
+    cfg_path = os.path.expanduser(args.cfg)
+
+    with open(cfg_path, "r") as f:
+        cfg = yaml.safe_load(f)
+
     # check if root flag
     if args.root:
         print(
@@ -91,32 +108,17 @@ def get_user_config() -> UserConfig:
         )
         default_scripts_path = os.path.join(args.root, "user_scripts")
     else:
-        default_scripts_path = RICER_DEFAULT_SCRIPTS_PATH
+        default_scripts_path = cfg['scripts_root'] 
 
-    # load main ricer cfg
-    # where files for each tool should go
-    cfg_path = os.path.expanduser(args.cfg)
-
-    # populate cfg if it doesn't already exist
-    if not os.path.exists(cfg_path):
-        logger.warning(f"config at {cfg_path} not found. auto-generating...")
-        os.makedirs(os.path.dirname(cfg_path), exist_ok=True)
-        import shutil
-        import sys
-
-        pkgdir = sys.modules["ricer"].__path__[0]
-        shutil.copy(os.path.join(pkgdir, "default_cfg_files", "ricer.yml"), cfg_path)
-
-    with open(cfg_path, "r") as f:
-        cfg = yaml.safe_load(f)
 
     # populate some default options
-    if not cfg.get("wallpaper_path"):
-        cfg["wallpaper_path"] = os.path.expanduser(RICER_DEFAULT_WALLPAPER_PATH)
+    # if not cfg.get("wallpaper_path"):
+    #     cfg["wallpaper_path"] = os.path.expanduser(RICER_DEFAULT_WALLPAPER_PATH)
 
-    if not cfg.get("scripts_root"):
-        cfg["scripts_root"] = os.path.expanduser(default_scripts_path)
-
+    # if not cfg.get("scripts_root"):
+    #     cfg["scripts_root"] = os.path.expanduser(default_scripts_path)
+ 
+    # TODO: figure out how to configure this
     if args.root:
         themes_path = os.path.expanduser(os.path.join(args.root, "themes"))
         scripts_root = os.path.expanduser(os.path.join(args.root, "user_scripts"))
@@ -141,20 +143,10 @@ def get_user_config() -> UserConfig:
     else:
         theme = args.theme
 
-    if not os.path.exists(args.global_override):
-        logger.warning(f"{args.global_override} not found. Auto-generating...")
-        os.makedirs(os.path.dirname(args.global_override), exist_ok=True)
-        import shutil
-        import sys
-
-        pkgdir = sys.modules["ricer"].__path__[0]
-        shutil.copy(
-            os.path.join(pkgdir, "default_cfg_files", "ricer-global.yml"), cfg_path
-        )
-
     user_config = UserConfig(
         cfg_path=cfg_path,
-        override_path=os.path.expanduser(args.global_override),
+        before_override_path=os.path.expanduser(args.global_override_before),
+        after_override_path=os.path.expanduser(args.global_override_after),
         list_themes=cfg.get("themes"),
         template_path=template_path,
         themes_path=themes_path,

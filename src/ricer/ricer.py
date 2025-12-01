@@ -92,11 +92,18 @@ def build_theme(user_config: UserConfig) -> ThemeData:
     with open(theme_context.theme_cfg, "r") as f:
         _theme_data = yaml.safe_load(f)
 
-    with open(user_config.override_path, "r") as f:
+    with open(user_config.before_override_path, "r") as f:
+        default_dict = yaml.safe_load(f)
+
+    with open(user_config.after_override_path, "r") as f:
         override_dict = yaml.safe_load(f)
 
-    # Keys in override dict take prescidence over the theme keys
-    theme_data_dict = merge_dicts(_theme_data, override_dict)
+    # have theme data override anything in default_dict
+    theme_data_dict = merge_dicts(default_dict, _theme_data, warn = True)
+
+    # override dict should overwrite anything set in the theme dict
+    theme_data_dict = merge_dicts(theme_data_dict, override_dict, warn = True)
+
     theme_data: ThemeData = init_theme_config(theme_data_dict, user_config)
 
     install_script_path = os.path.join(
@@ -177,14 +184,6 @@ def move_to_dotfiles(
     build_path = os.path.expanduser(theme_context.build_dir)
 
     path_config = user_config.tools
-
-    # if "git" not in dotfiles_path or len(dotfiles_path) < 8:
-    #     raise ValueError(
-    #         f"'git' is not in the dotfiles path OR the path is "
-    #         + "less than 8 characters. While not a bug, this is "
-    #         + "suspicious, so I'm crashing. To fix this, just "
-    #         + "put the dotfiles retool in a folder called 'git'"
-    #     )
 
     if os.path.exists(dotfiles_path):
         logger.info(f"removing {dotfiles_path}")

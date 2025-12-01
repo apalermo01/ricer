@@ -19,7 +19,9 @@ There are 5 paths to consider when setting up ricer:
 add ricer.nix to you overlays
 
 ## Non-nix
-install via pip (WIP)
+Install via pipx:
+
+`pipx install git+https://github.com/apalermo01/rices.git`
 
 ## Changing themes 
 run `ricer switch` to list the themes in themes_path and pick which one to apply.
