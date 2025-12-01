@@ -74,4 +74,10 @@ These are the options available for **all tools**
 **Tool specific settings**
 To quickly access the additional settings available for each tool, see the tool modules in `src/ricer/tools` - each file has a TypedDict that extends the base configuration options with the additional settings that are available.
 
+# Misc notes
 
+start distrobox for a clean env:
+
+```zsh
+distrobox create --name test --init --image ubuntu:latest -H ~/Documents/distbox-test --volume /home/alex/Documents/git/dotfiles:/home/alex/Documents/git/dotfiles:rw
+```
