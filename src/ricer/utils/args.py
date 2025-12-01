@@ -2,7 +2,7 @@
 import argparse
 import logging
 import os
-import pprint
+from pprint import pprint
 import sys
 
 import yaml
@@ -59,19 +59,19 @@ def parse_args():
 
     # config path
     parser.add_argument(
-        "--cfg", required=False, default=os.path.expanduser(defaults['ricer_defaulf_cfg'])
+        "--cfg", required=False, default=os.path.expanduser("~/.config/ricer/ricer.yml")
     )
 
     parser.add_argument(
         "--global-override-before",
         required=False,
-        default=os.path.expanduser(defaults['ricer_before_override']),
+        default=os.path.expanduser("~/.config/ricer/ricer-global-before.yml"),
     )
 
     parser.add_argument(
         "--global-override-after",
         required=False,
-        default=os.path.expanduser(defaults['ricer_after_override']),
+        default=os.path.expanduser("~/.config/ricer/ricer-global-after.yml"),
     )
     parser.add_argument("--template-path", required=False)
     parser.add_argument("--themes-path", required=False)

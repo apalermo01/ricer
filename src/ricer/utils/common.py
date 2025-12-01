@@ -1,11 +1,18 @@
+import json
+import logging
 import os
 from typing import Iterable
-import json
+
 from jinja2 import Template
 
+logger = logging.getLogger(__name__)
 
-def merge_dicts(a: dict, b: dict, warn: bool = False) -> dict:
+
+def merge_dicts(a: dict, b: dict | None, warn: bool = False) -> dict:
     """Override keys in dictionary a with those in dictionary b"""
+    if b is None:
+        logger.warning("passed empty dictionary or None to merge_dicts")
+        return a 
     for k in b:
         if k in a:
             if isinstance(a[k], dict) and isinstance(b[k], dict):
