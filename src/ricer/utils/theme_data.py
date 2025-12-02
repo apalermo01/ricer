@@ -56,13 +56,13 @@ class i3Config(BaseToolConfig):
     font: Optional[str] = None
     font_size: Optional[int] = 11
 
+
 class KittyConfig(BaseToolConfig):
     pass
 
+
 class NvimConfig(BaseToolConfig):
     colorscheme: Optional[str | dict] = None
-    nvchad_colorscheme: Optional[str] = None
-    nvchad_separator: Optional[str] = None
 
 
 class OkularConfig(BaseToolConfig):
@@ -81,20 +81,23 @@ class PolybarConfig(BaseToolConfig):
 class RofiConfig(BaseToolConfig):
     pass
 
+
 class SioyekConfig(BaseToolConfig):
-    pass 
+    pass
+
 
 class TmuxConfig(BaseToolConfig):
     pass
 
 
 class WPValidator(BaseModel):
-    @model_validator(mode='after')
+    @model_validator(mode="after")
     def check_file(self):
         data = self.model_dump()
-        if data['file'] is None and data['random'] == False:
+        if data["file"] is None and data["random"] == False:
             raise ValueError("file required if not using a random wallpaper")
         return self
+
 
 class WallpaperConfig(WPValidator):
     method: Literal["feh", "hyprpaper", "None"] = "None"
@@ -111,8 +114,6 @@ class ZshConfig(BaseToolConfig):
     feats: list[
         Literal["cowsay_fortune", "neofetch", "fastfetch", "run_pywal", "git_onefetch"]
     ] = []
-    zoxide: Optional[bool]
-    direnv: Optional[bool]
 
 
 class ThemeData(BaseModel):
