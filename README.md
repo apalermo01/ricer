@@ -8,7 +8,7 @@ There are 5 paths to consider when setting up ricer:
 
 - template_path: directory where everything that is common between all themes should live
 - scripts_root: path to use-defined scripts
-  - TODO: do we need this?
+    - We need a scripts directory to hold startup / management scripts for a few tools, such as polybar
 - dotfiles_path: where to store the dotfiles after being built by ricer. I suggest you point this at your dotfiles repo.
 - themes_path: path to theme configurations
 - wallpaper_path: where wallpapers live
