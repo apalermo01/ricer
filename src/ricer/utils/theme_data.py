@@ -18,6 +18,9 @@ class AlacrittyConfig(BaseToolConfig):
     pass
 
 
+# class AppsConfigRequires(BaseModel):
+#     __annotations__["qt.colorscheme"] = str
+
 class AppsConfig(BaseToolConfig):
     provides: dict
     requires: dict
