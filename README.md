@@ -253,9 +253,18 @@ To access the most up-to-date options available for each tool, see `./src/ricer/
 
   - takes only options that are already available for every tool
 
-- neovim
-    - `colorscheme`: name of the colorscheme to apply.
-    - TODO: pydantic model allows for a dict - what happens then?
+- Neovim
+    - `colorscheme`: str or dict: name of the colorscheme to apply.
+        - If a string, then colorscheme will be written to `~/.config/nvim/init.lua`
+        - It is possible to specify the file that the colorcheme command gets written to by passing colorscheme as a dictionary:
+        ```yml
+        nvim:
+            colorscheme:
+                colorscheme: "name-of-your-colorscheme"
+                file: "path/to/your/file.lua"
+        ```
+        - The file path specified here is relative to `~/.config/nvim`
+
 - okular
     - This does take one option called `UiSettings`, however it is not used as of this writing. Instead, it uses the name filled in in `apps.name` to set the colorscheme. 
 
