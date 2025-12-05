@@ -241,8 +241,8 @@ To access the most up-to-date options available for each tool, see `./src/ricer/
 
 - Global
 
-  - takes only options that are already available for every tool
-  - TODO: needs more detail
+  - Takes only options that are already available for every tool
+  - This allows you to have ~/.profile managed by ricer. The template file is `<template_path>/global/.profile`
 
 - i3
 
