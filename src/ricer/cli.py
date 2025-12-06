@@ -16,7 +16,11 @@ def main() -> None:
         print(" ", file=sys.stderr)
         print("                    --cfg ~/.config/ricer/ricer.yml \\", file=sys.stderr)
         print(
-            "                    --global-override ~/.config/ricer/ricer-global.yml \\",
+            "                    --global-override-before ~/.config/ricer/ricer-global-before.yml \\",
+            file=sys.stderr,
+        )
+        print(
+            "                    --global-override-after ~/.config/ricer/ricer-global-after.yml \\",
             file=sys.stderr,
         )
         print(

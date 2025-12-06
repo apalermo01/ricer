@@ -54,6 +54,9 @@ class FishConfig(BaseToolConfig):
 class GlobalConfig(BaseToolConfig):
     pass
 
+class GTKConfig(BaseToolConfig):
+    gtk_theme: str
+
 
 class i3Config(BaseToolConfig):
     font: Optional[str] = None
@@ -132,6 +135,7 @@ class ThemeData(BaseModel):
     fastfetch: Optional[FastfetchConfig] = None
     fish: Optional[FishConfig] = None
     global_settings: Optional[GlobalConfig] = None
+    gtk: Optional[GTKConfig] = None
     i3: Optional[i3Config] = None
     kitty: Optional[KittyConfig] = None
     nvim: Optional[NvimConfig] = None

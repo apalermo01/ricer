@@ -244,6 +244,14 @@ To access the most up-to-date options available for each tool, see `./src/ricer/
   - Takes only options that are already available for every tool
   - This allows you to have ~/.profile managed by ricer. The template file is `<template_path>/global/.profile`
 
+- GTK
+    - needs gsettings, gtk3, gtk4, and gsettings-desktop-schemas
+    - TODO: set XDG_DATA_DIR in ~/.profile on nix
+    - requirements: dart-sass, meson, ninja
+    - got something togglable working in gtk:
+        - 1. make a script to download a base theme 
+        - 2. Define overrides for the theme's css 
+        - 3. add GTK_THEME env var to ~/.profile
 - i3
 
   - `font`
