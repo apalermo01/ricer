@@ -56,7 +56,8 @@ class GlobalConfig(BaseToolConfig):
 
 class GTKConfig(BaseToolConfig):
     gtk_theme: str
-    mode: str
+    mode: Optional[str] = None
+    gtk_install_script: Optional[str] = None
 
 
 class i3Config(BaseToolConfig):
