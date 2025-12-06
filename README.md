@@ -141,6 +141,8 @@ running `ricer switch` will list all the directories in the designated `themes` 
 1. Generate the theme config files in `<theme_directory>/<theme_name>/build`
 1. Move the files from the build directory to the `dotfiles_path` defined in `~/.config/ricer/ricer.yaml`
 
+Ricer will also generate a script `~/.config/install_theme.sh` which will run any additional commands necessary to install a theme. 
+
 ### Post build hooks
 
 After the theme is built, ricer will execute the scripts in the `hook_path` entry in `theme.yaml`. Here is mine as an example:
@@ -151,7 +153,7 @@ hook_path:
   - "~/Documents/git/dotfiles/scripts/switch_kb_layout.sh q"
 ```
 
-My switch_theme.sh script calls stow to symlink the dotfiles in the built themes folder to my real ~/.config folder. **By default, ricer does not install the themes for you, unless you set `dotfiles_path` to your home directory, which is not recommended**.
+My [switch_theme.sh](https://github.com/apalermo01/dotfiles/blob/main/scripts/switch_theme.sh) script calls stow to symlink the dotfiles in the built themes folder to my real ~/.config folder, then calls `~/.config/install_theme.sh` **By default, ricer does not install the themes for you, unless you set `dotfiles_path` to your home directory, which is not recommended**.
 
 # Configuration
 
@@ -244,6 +246,21 @@ To access the most up-to-date options available for each tool, see `./src/ricer/
   - Takes only options that are already available for every tool
   - This allows you to have ~/.profile managed by ricer. The template file is `<template_path>/global/.profile`
 
+- GTK
+    - `gtk_theme`: required - name of the gtk theme to use.
+    - `mode`: optional - theme mode (e.g. 'dark')
+    - `gtk_install_script`: optional - name of custom script to install a theme. Must be in `<theme_path>/gtk`
+    - For more details, see [gtk](#gtk).
+    - You can set a gtk theme by either having ricer compile a supported theme for you or provide an install script for a theme. 
+    - Compile with ricer:
+        - If gtk_theme is a supported theme (only `adw-gtk3` as of writing), then ricer will download the theme's source, allow you to overwrite a css or scss file, and then compile the theme. This allows you to overwrite the colors for a theme. 
+    - needs gsettings, gtk3, gtk4, and gsettings-desktop-schemas
+    - TODO: set XDG_DATA_DIR in ~/.profile on nix
+    - requirements: dart-sass, meson, ninja
+    - got something togglable working in gtk:
+        - 1. make a script to download a base theme 
+        - 2. Define overrides for the theme's css 
+        - 3. add GTK_THEME env var to ~/.profile
 - i3
 
   - `font`
@@ -299,6 +316,21 @@ To access the most up-to-date options available for each tool, see `./src/ricer/
 - font_size
 
 - hook_path
+
+# <a name="gtk"><\a>GTK Themes 
+
+## Compiling a theme with ricer
+
+Ricer provides a utility to download and compile the `adw-gtk3` theme. It will replace [\_defaults.scss](https://github.com/lassekongo83/adw-gtk3/blob/main/src/sass/_defaults.scss) with what is defined in your template. Support for additional themes are planned. 
+
+Compiling a theme requires `dart-sass`, `meson`, and `ninja` to be installed in on your system. See [adw-gtk3's depencencies](https://github.com/lassekongo83/adw-gtk3/blob/main/src/README.md#Requirements) for more details. 
+
+## Providing a custom theme install script 
+It is also possible to bring your own install script. Set `gtk_install_script` to the name of your installer. It must be located in `<theme_path>/gtk`. For example: `/home/username/Documents/git/dotfiles/themes/your-theme/gtk/install_gtk_theme.sh`. The contents of the build script will be appended to `~/.config/install_theme.sh`. 
+
+## Theme install script behavior
+Theme install commands (compiling through ricer or executing a user-provided script) will not execute when you run `ricer switch` without additional configuration. The installation script is appended to `~/.config/install_theme.sh`. To automatically compile and install the gtk theme when running `ricer switch`, either add `~/.config/install_theme.sh` to the `hooks` array in your theme config or call `install_theme.sh` from within a script in the `hooks` array.
+
 
 # Development
 

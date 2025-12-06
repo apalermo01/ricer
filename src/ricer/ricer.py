@@ -20,7 +20,7 @@ logging.basicConfig(level=logging.INFO)
 RICER_CONFIG = {
     "order": [
         "colors",
-        "apps",
+        "gtk",
         "i3",
         "polybar",
         "nvim",
