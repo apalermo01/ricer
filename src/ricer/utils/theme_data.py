@@ -56,6 +56,7 @@ class GlobalConfig(BaseToolConfig):
 
 class GTKConfig(BaseToolConfig):
     gtk_theme: str
+    mode: str
 
 
 class i3Config(BaseToolConfig):
