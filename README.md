@@ -8,7 +8,7 @@ There are 5 paths to consider when setting up ricer:
 
 - template_path: directory where everything that is common between all themes should live
 - scripts_root: path to use-defined scripts
-    - We need a scripts directory to hold startup / management scripts for a few tools, such as polybar
+  - We need a scripts directory to hold startup / management scripts for a few tools, such as polybar
 - dotfiles_path: where to store the dotfiles after being built by ricer. I suggest you point this at your dotfiles repo.
 - themes_path: path to theme configurations
 - wallpaper_path: where wallpapers live
@@ -141,7 +141,7 @@ running `ricer switch` will list all the directories in the designated `themes` 
 1. Generate the theme config files in `<theme_directory>/<theme_name>/build`
 1. Move the files from the build directory to the `dotfiles_path` defined in `~/.config/ricer/ricer.yaml`
 
-Ricer will also generate a script `~/.config/install_theme.sh` which will run any additional commands necessary to install a theme. 
+Ricer will also generate a script `~/.config/install_theme.sh` which will run any additional commands necessary to install a theme.
 
 ### Post build hooks
 
@@ -212,6 +212,7 @@ To access the most up-to-date options available for each tool, see `./src/ricer/
   - takes only options that are already available for every tool
 
 - Apps
+
   - `provides`
   - `requires`
   - `name`
@@ -247,20 +248,22 @@ To access the most up-to-date options available for each tool, see `./src/ricer/
   - This allows you to have ~/.profile managed by ricer. The template file is `<template_path>/global/.profile`
 
 - GTK
-    - `gtk_theme`: required - name of the gtk theme to use.
-    - `mode`: optional - theme mode (e.g. 'dark')
-    - `gtk_install_script`: optional - name of custom script to install a theme. Must be in `<theme_path>/gtk`
-    - For more details, see [gtk](#gtk).
-    - You can set a gtk theme by either having ricer compile a supported theme for you or provide an install script for a theme. 
-    - Compile with ricer:
-        - If gtk_theme is a supported theme (only `adw-gtk3` as of writing), then ricer will download the theme's source, allow you to overwrite a css or scss file, and then compile the theme. This allows you to overwrite the colors for a theme. 
-    - needs gsettings, gtk3, gtk4, and gsettings-desktop-schemas
-    - TODO: set XDG_DATA_DIR in ~/.profile on nix
-    - requirements: dart-sass, meson, ninja
-    - got something togglable working in gtk:
-        - 1. make a script to download a base theme 
-        - 2. Define overrides for the theme's css 
-        - 3. add GTK_THEME env var to ~/.profile
+
+  - `gtk_theme`: required - name of the gtk theme to use.
+  - `mode`: optional - theme mode (e.g. 'dark')
+  - `gtk_install_script`: optional - name of custom script to install a theme. Must be in `<theme_path>/gtk`
+  - For more details, see [gtk](#gtk).
+  - You can set a gtk theme by either having ricer compile a supported theme for you or provide an install script for a theme.
+  - Compile with ricer:
+    - If gtk_theme is a supported theme (only `adw-gtk3` as of writing), then ricer will download the theme's source, allow you to overwrite a css or scss file, and then compile the theme. This allows you to overwrite the colors for a theme.
+  - needs gsettings, gtk3, gtk4, and gsettings-desktop-schemas
+  - TODO: set XDG_DATA_DIR in ~/.profile on nix
+  - requirements: dart-sass, meson, ninja
+  - got something togglable working in gtk:
+    - 1. make a script to download a base theme
+    - 2. Define overrides for the theme's css
+    - 3. add GTK_THEME env var to ~/.profile
+
 - i3
 
   - `font`
@@ -271,26 +274,43 @@ To access the most up-to-date options available for each tool, see `./src/ricer/
   - takes only options that are already available for every tool
 
 - Neovim
-    - `colorscheme`: str or dict: name of the colorscheme to apply.
-        - If a string, then colorscheme will be written to `~/.config/nvim/init.lua`
-        - It is possible to specify the file that the colorcheme command gets written to by passing colorscheme as a dictionary:
-        ```yml
-        nvim:
-            colorscheme:
-                colorscheme: "name-of-your-colorscheme"
-                file: "path/to/your/file.lua"
-        ```
-        - The file path specified here is relative to `~/.config/nvim`
 
-- okular
-    - This does take one option called `UiSettings`, however it is not used as of this writing. Instead, it uses the name filled in in `apps.name` to set the colorscheme. 
+  - `colorscheme`: str or dict: name of the colorscheme to apply.
+    - If a string, then colorscheme will be written to `~/.config/nvim/init.lua`
+    - It is possible to specify the file that the colorcheme command gets written to by passing colorscheme as a dictionary:
+    ```yml
+    nvim:
+        colorscheme:
+            colorscheme: "name-of-your-colorscheme"
+            file: "path/to/your/file.lua"
+    ```
+    - The file path specified here is relative to `~/.config/nvim`
 
 - picom
 
   - takes only options that are already available for every tool
 
 - polybar
-    - `bars`: this is a list of the names of the individual polybar bars. 
+
+  - `bars`: this is a list of the names of the individual polybar bars.
+
+- QT
+
+  - `method`: 'default' or 'manual'
+    - If 'default', set `kv_theme` to one of the default themes [supplied by kvantum](https://github.com/tsujan/Kvantum/tree/master/Kvantum/themes/kvthemes). You may define overrides for the default theme in `<theme_dir>/qt/any-file-name.kvconfig`
+    - If 'manual', fully define the kvantum config inside `<theme_dir>/qt/`. For example, setting the catppuccin theme from [this repo](https://github.com/catppuccin/kvantum) would have this structure inside `<theme_dir>/qt`
+
+```
+        .
+        ├── catppuccin-mocha-yellow
+        │   ├── catppuccin-mocha-yellow.kvconfig
+        │   └── catppuccin-mocha-yellow.svg
+        └── kvantum.kvconfig
+
+```
+
+    - `kv_theme`: default theme name. Required if `method` is 'default'.
+
 - rofi
 
   - takes only options that are already available for every tool
@@ -317,20 +337,21 @@ To access the most up-to-date options available for each tool, see `./src/ricer/
 
 - hook_path
 
-# <a name="gtk"><\a>GTK Themes 
+# <a name="gtk">\<\\a>GTK Themes
 
 ## Compiling a theme with ricer
 
-Ricer provides a utility to download and compile the `adw-gtk3` theme. It will replace [\_defaults.scss](https://github.com/lassekongo83/adw-gtk3/blob/main/src/sass/_defaults.scss) with what is defined in your template. Support for additional themes are planned. 
+Ricer provides a utility to download and compile the `adw-gtk3` theme. It will replace [\_defaults.scss](https://github.com/lassekongo83/adw-gtk3/blob/main/src/sass/_defaults.scss) with what is defined in your template. Support for additional themes are planned.
 
-Compiling a theme requires `dart-sass`, `meson`, and `ninja` to be installed in on your system. See [adw-gtk3's depencencies](https://github.com/lassekongo83/adw-gtk3/blob/main/src/README.md#Requirements) for more details. 
+Compiling a theme requires `dart-sass`, `meson`, and `ninja` to be installed in on your system. See [adw-gtk3's depencencies](https://github.com/lassekongo83/adw-gtk3/blob/main/src/README.md#Requirements) for more details.
 
-## Providing a custom theme install script 
-It is also possible to bring your own install script. Set `gtk_install_script` to the name of your installer. It must be located in `<theme_path>/gtk`. For example: `/home/username/Documents/git/dotfiles/themes/your-theme/gtk/install_gtk_theme.sh`. The contents of the build script will be appended to `~/.config/install_theme.sh`. 
+## Providing a custom theme install script
+
+It is also possible to bring your own install script. Set `gtk_install_script` to the name of your installer. It must be located in `<theme_path>/gtk`. For example: `/home/username/Documents/git/dotfiles/themes/your-theme/gtk/install_gtk_theme.sh`. The contents of the build script will be appended to `~/.config/install_theme.sh`.
 
 ## Theme install script behavior
-Theme install commands (compiling through ricer or executing a user-provided script) will not execute when you run `ricer switch` without additional configuration. The installation script is appended to `~/.config/install_theme.sh`. To automatically compile and install the gtk theme when running `ricer switch`, either add `~/.config/install_theme.sh` to the `hooks` array in your theme config or call `install_theme.sh` from within a script in the `hooks` array.
 
+Theme install commands (compiling through ricer or executing a user-provided script) will not execute when you run `ricer switch` without additional configuration. The installation script is appended to `~/.config/install_theme.sh`. To automatically compile and install the gtk theme when running `ricer switch`, either add `~/.config/install_theme.sh` to the `hooks` array in your theme config or call `install_theme.sh` from within a script in the `hooks` array.
 
 # Development
 
