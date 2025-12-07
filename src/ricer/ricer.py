@@ -21,6 +21,7 @@ RICER_CONFIG = {
     "order": [
         "colors",
         "gtk",
+        "qt",
         "i3",
         "polybar",
         "nvim",

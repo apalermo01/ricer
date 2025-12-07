@@ -35,7 +35,8 @@ tools:
 
   tmux:
     config_path: '.config/tmux'
-  
+    jinja: True
+
   zsh: 
     config_path: ''
 
@@ -63,6 +64,13 @@ tools:
   global:
     config_path: ''
 
+  gtk:
+    config_path: '.config/gtk-3.0/'
+    jinja: True
+
+  qt: 
+    config_path: '.config/Kvantum/'
+    jinja: True
 # bash: 
 #   template_path: 'default_configs/bash'
 #   destination_path: 'bash/'

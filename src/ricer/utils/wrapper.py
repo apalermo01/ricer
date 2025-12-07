@@ -90,6 +90,8 @@ def copy_files_from_template(template_path: str, build_path: str):
 
         # now go through all the files in the i3 folder
         for file in files:
+            if file == '.gitkeep':
+                continue
             src_file = os.path.join(root, strip_slash(file))
             dest_file = os.path.join(
                 build_path, strip_slash(subfolder), strip_slash(file)
