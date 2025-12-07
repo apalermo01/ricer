@@ -85,10 +85,13 @@ class PolybarConfig(BaseToolConfig):
     bars: Optional[list[str]] = []
     start_script: Optional[str] = None
 
+class QTConfig(BaseToolConfig):
+    method: str
+    # kv_install_script: Optional[str]
+    kv_theme: Optional[str] = None
 
 class RofiConfig(BaseToolConfig):
     pass
-
 
 class SioyekConfig(BaseToolConfig):
     pass
@@ -144,6 +147,7 @@ class ThemeData(BaseModel):
     okular: Optional[OkularConfig] = None
     picom: Optional[PicomConfig] = None
     polybar: Optional[PolybarConfig] = None
+    qt: Optional[QTConfig] = None
     rofi: Optional[RofiConfig] = None
     sioyek: Optional[SioyekConfig] = None
     tmux: Optional[TmuxConfig] = None
