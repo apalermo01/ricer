@@ -92,5 +92,5 @@ def _configure_font(config: ThemeData, dest: str, theme_path: str):
     font_size = config.i3.font_size
     i3_config_path = os.path.join(theme_path, "build", "i3/config")
     pattern: str = "font "
-    txt: str = f"font {font} {font_size}"
+    txt: str = f"font pango:{font} {font_size}"
     overwrite_or_append_line(pattern=pattern, replace_text=txt, dest=i3_config_path)
