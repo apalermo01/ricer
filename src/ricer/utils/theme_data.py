@@ -96,10 +96,14 @@ class RofiConfig(BaseToolConfig):
 class SioyekConfig(BaseToolConfig):
     pass
 
-
 class TmuxConfig(BaseToolConfig):
     pass
 
+class HyprlandConfig(BaseToolConfig):
+    pass
+
+class WaybarConfig(BaseToolConfig):
+    pass
 
 class WPValidator(BaseModel):
     @model_validator(mode="after")
@@ -141,6 +145,7 @@ class ThemeData(BaseModel):
     fish: Optional[FishConfig] = None
     global_settings: Optional[GlobalConfig] = None
     gtk: Optional[GTKConfig] = None
+    hyprland: Optional[HyprlandConfig] = None
     i3: Optional[i3Config] = None
     kitty: Optional[KittyConfig] = None
     nvim: Optional[NvimConfig] = None
@@ -152,6 +157,7 @@ class ThemeData(BaseModel):
     sioyek: Optional[SioyekConfig] = None
     tmux: Optional[TmuxConfig] = None
     wallpaper: Optional[WallpaperConfig] = None
+    waybar: Optional[WaybarConfig] = None
     yazi: Optional[YaziConfig] = None
     zsh: Optional[ZshConfig] = None
 

@@ -33,9 +33,11 @@ def main() -> None:
         )
         sys.exit(1)
 
-    sys.argv.pop(1)
-    detect_install()
-    switch_main()
+    if sys.argv[1] == 'switch':
+        sys.argv.pop(1)
+        detect_install()
+        switch_main()
+
 
 
 if __name__ == "__main__":

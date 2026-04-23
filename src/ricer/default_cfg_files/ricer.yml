@@ -71,6 +71,7 @@ tools:
   qt: 
     config_path: '.config/Kvantum/'
     jinja: True
+
 # bash: 
 #   template_path: 'default_configs/bash'
 #   destination_path: 'bash/'
@@ -80,17 +81,17 @@ tools:
 #   template_path: 'default_configs/fish'
 #   destination_path: 'fish/'
 #   config_path: '.config/fish/'
-#
-# hyprland:
-#   template_path: 'default_configs/hyprland'
-#   destination_path: 'hypr/'
-#   config_path: '.config/hypr/'
-#
-# waybar:
-#   template_path: 'default_configs/waybar'
-#   destination_path: 'waybar/'
-#   config_path: '.config/waybar/'
-#
+
+hyprland:
+  template_path: 'default_configs/hyprland'
+  destination_path: 'hyprland/'
+  config_path: '.config/hypr/'
+
+waybar:
+  template_path: 'default_configs/waybar'
+  destination_path: 'waybar/'
+  config_path: '.config/waybar/'
+
 # alacritty:
 #   template_path:  'default_configs/alacritty/'
 #   destination_path: 'alacritty/'
