@@ -1,7 +1,7 @@
 import logging
 import os
-import shutil
 import random
+import shutil
 
 from ricer.utils.theme_data import ThemeData, ToolResult
 from ricer.utils.types import ThemeContext
@@ -32,8 +32,9 @@ def parse_wallpaper(
         )
     elif method == "hyprpaper":
         hyprpaper_theme(
-            theme_data,
-            theme_path,
+            theme_data=theme_data,
+            theme_context=theme_context,
+            theme_path=theme_path,
         )
     elif method == "None":
         move_wp_only(
@@ -154,22 +155,31 @@ def feh_theme(config: ThemeData, theme_path: str):
 
 
 def hyprpaper_theme(
-    config: ThemeData,
+        theme_data: ThemeData,
+        theme_context: ThemeContext,
     theme_path: str,
 ):
-    assert config.wallpaper
-    wallpaper_path: str = config.wallpaper.file
+    assert theme_data.wallpaper
+    wallpaper_path: str = theme_data.wallpaper.file
 
-    hyprpaper_path: str = os.path.join(theme_path, "build", "hypr")
+    hyprpaper_path: str = os.path.join(theme_path, "build", "hyprland")
     if not os.path.exists(hyprpaper_path):
         os.makedirs(hyprpaper_path)
 
     hyprpaper_path = os.path.join(hyprpaper_path, "hyprpaper.conf")
-    # hyprpaper_path: str = os.path.expanduser("~/.config/hypr/hyprpaper.conf")
 
-    # if just the filename was given, look in the project's wallpaper folder:
-    if "/" not in wallpaper_path:
-        wallpaper_path = os.path.join(".", "wallpapers", wallpaper_path)
+    # random wallpaper: look in theme_path / wallpapers and pick one
+    if theme_data.wallpaper.random:
+        wp_folder: str = os.path.join(theme_path, "wallpapers")
+
+        wallpaper_path: str = os.path.join(wp_folder, theme_data.wallpaper.file)
+
+    else:
+        wallpaper_path: str = theme_data.wallpaper.file
+
+        # if just the filename was given, look in the project's wallpaper folder:
+        if "/" not in wallpaper_path:
+            wallpaper_path = os.path.join(".", "wallpapers", wallpaper_path)
 
     wallpaper_dest: str = os.path.expanduser(
         f"~/Pictures/wallpapers/{wallpaper_path.split('/')[-1]}"
@@ -178,22 +188,31 @@ def hyprpaper_theme(
     if not os.path.exists(os.path.expanduser("~/Pictures/wallpapers/")):
         os.makedirs(os.path.expanduser("~/Picutres/wallpapers/"))
 
-    if not config.hyprland:
+    if not theme_data.hyprland:
         raise KeyError(
-            "This parser is only configured to work with hyprland if "
-            + "hyprpaper is used. Please add it to the theme's config"
+            "This parser is only theme_dataured to work with hyprland if "
+            + "hyprpaper is used. Please add it to the theme's theme_data"
         )
 
-    with open("./default_configs/monitors.txt", "r") as f:
+    print(theme_context.template_path)
+    with open(os.path.join(theme_context.template_path, "monitors.txt"), "r") as f:
         monitors = f.readlines()
 
     with open(hyprpaper_path, "w") as f:
-        f.write(f"preload = {wallpaper_dest}\n")
         for m in monitors:
-            f.write(f"wallpaper = {m[:-1]}, {wallpaper_dest}\n")
+            for line in [
+                'wallpaper {',
+                    f'monitor = {m[:-1]}',
+                    f'path = {wallpaper_dest}',
+                    'fit_mode = cover',
+                '}'
+                ]:
+                f.write(line + "\n")
+            # f.write(f"wallpaper = {m[:-1]}, {wallpaper_dest}\n")
 
     logger.info(f"wrote wallpaper info to {hyprpaper_path}")
 
-    shutil.copy2(src=wallpaper_path, dst=wallpaper_dest)
+    move_wp_only(theme_data, theme_path)
+    # shutil.copy2(src=wallpaper_path, dst=wallpaper_dest)
 
-    logger.info(f"copied {wallpaper_path} to {wallpaper_dest}")
+    # logger.info(f"copied {wallpaper_path} to {wallpaper_dest}")
