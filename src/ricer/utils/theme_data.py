@@ -34,7 +34,7 @@ class BashConfig(BaseToolConfig):
 
 
 class ColorsConfig(BaseToolConfig):
-    method: Literal["manual", "pywal"]
+    method: Literal["manual", "pywal", "wallust"]
 
 
 class DunstConfig(BaseToolConfig):
@@ -91,6 +91,9 @@ class QTConfig(BaseToolConfig):
     kv_theme: Optional[str] = None
 
 class RofiConfig(BaseToolConfig):
+    pass
+
+class WofiConfig(BaseToolConfig):
     pass
 
 class SioyekConfig(BaseToolConfig):
@@ -158,6 +161,7 @@ class ThemeData(BaseModel):
     tmux: Optional[TmuxConfig] = None
     wallpaper: Optional[WallpaperConfig] = None
     waybar: Optional[WaybarConfig] = None
+    wofi: Optional[RofiConfig] = None
     yazi: Optional[YaziConfig] = None
     zsh: Optional[ZshConfig] = None
 

@@ -29,6 +29,7 @@ RICER_CONFIG = {
         "nvim",
         "tmux",
         "rofi",
+        "wofi",
         "picom",
         "fish",
         "bash",

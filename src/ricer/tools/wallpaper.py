@@ -194,7 +194,6 @@ def hyprpaper_theme(
             + "hyprpaper is used. Please add it to the theme's theme_data"
         )
 
-    print(theme_context.template_path)
     with open(os.path.join(theme_context.template_path, "monitors.txt"), "r") as f:
         monitors = f.readlines()
 
