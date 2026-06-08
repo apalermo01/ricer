@@ -21,6 +21,7 @@ from . import (
     tmux,
     wallpaper,
     waybar,
+    wofi,
     yazi,
     zsh,
 )
@@ -48,6 +49,7 @@ modules = {
     "sioyek": sioyek.parse_sioyek,
     "wallpaper": wallpaper.parse_wallpaper,
     "waybar": waybar.parse_waybar,
+    "wofi": wofi.parse_wofi,
     "yazi": yazi.parse_yazi,
     "zsh": zsh.parse_zsh,
 }
