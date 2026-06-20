@@ -53,6 +53,8 @@ def parse_kitty(
             f"font_size     {font_size}\n",
         )
 
+    install_script += "\nkitty @ load-config\n"
+
     return ToolResult(
         theme_data=theme_data,
         install_script=install_script,
