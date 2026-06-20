@@ -61,6 +61,7 @@ def parse_colors(
             if "red" not in pallet:
                 pallet["red"] = "#ff0000"
             _write_pallet_to_colorscheme(pallet, colorscheme_path)
+            _run_pywal(wallpaper_file)
 
         elif method == "wallust":
             pallet = _configure_wallust_colors(wallpaper_file, theme_context.template_path)
@@ -69,10 +70,6 @@ def parse_colors(
             if "red" not in pallet:
                 pallet["red"] = "#ff0000"
             _write_pallet_to_colorscheme(pallet, colorscheme_path)
-
-
-        else:
-            _run_pywal(wallpaper_file)
 
     # if (theme_data.wallpaper and theme_data.wallpaper.random):
     #     wallpaper_path = os.path
